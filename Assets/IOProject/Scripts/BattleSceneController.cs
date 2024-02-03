@@ -15,7 +15,7 @@ namespace IOProject
         async void Start()
         {
             await BootSystem.IsReady;
-
+            TinyServiceLocator.RegisterAsync<IInputController>(new InputController(), this.destroyCancellationToken).Forget();
             var playerActor = Instantiate(this.playerActorPrefab);
             var gameCameraController = Instantiate(this.gameCameraControllerPrefab);
             gameCameraController.SetTarget(playerActor.transform);
