@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public class SceneController : MonoBehaviour
+namespace IOProject
 {
+    public class SceneController : MonoBehaviour
+    {
+    }
 }
