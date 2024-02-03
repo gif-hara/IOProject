@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Cysharp.Threading.Tasks.Triggers;
 
@@ -10,7 +11,8 @@ namespace IOProject.ActorControllers
             actor.GetAsyncUpdateTrigger()
                 .Subscribe(_ =>
                 {
-                });
+                })
+                .AddTo(actor.destroyCancellationToken);
         }
     }
 }
