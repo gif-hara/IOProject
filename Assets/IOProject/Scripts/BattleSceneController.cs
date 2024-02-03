@@ -18,6 +18,7 @@ namespace IOProject
 
             var playerActor = Instantiate(this.playerActorPrefab);
             var gameCameraController = Instantiate(this.gameCameraControllerPrefab);
+            gameCameraController.SetTarget(playerActor.transform);
         }
     }
 }
