@@ -301,6 +301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c8c8d37036a644bb2551ea7f10216e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerActorPrefab: {fileID: 941140516101043193, guid: 7622b51e84da6e2459786232550dd815, type: 3}
+  gameCameraControllerPrefab: {fileID: 9098317703298601956, guid: b748d0ff7b1037344adf7470aa13255c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
