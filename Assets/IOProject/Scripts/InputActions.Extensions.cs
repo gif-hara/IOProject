@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using UnityEngine.InputSystem;
 
-namespace MH2
+namespace IOProject
 {
     /// <summary>
     /// 
