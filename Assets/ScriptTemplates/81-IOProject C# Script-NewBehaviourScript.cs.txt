@@ -1,0 +1,9 @@
+namespace IOProject
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class #SCRIPTNAME#
+    {
+    }
+}
