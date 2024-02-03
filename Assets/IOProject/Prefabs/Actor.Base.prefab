@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9115523774149022476}
+  - component: {fileID: -2475170256125632000}
   m_Layer: 0
   m_Name: Actor.Base
   m_TagString: Untagged
@@ -32,6 +33,18 @@ Transform:
   - {fileID: 2925725599150167715}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2475170256125632000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6468868194897397533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af900f5a9c27f9d45941df6cff97f960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7962706601735477365
 GameObject:
   m_ObjectHideFlags: 0
