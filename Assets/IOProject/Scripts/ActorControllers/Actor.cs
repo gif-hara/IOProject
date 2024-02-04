@@ -27,6 +27,7 @@ namespace IOProject.ActorControllers
         {
             var actor = Instantiate(this);
             actor.Initialize(model);
+            ActorEvents.OnSpawned.Publish(actor);
             return actor;
         }
 
