@@ -23,7 +23,14 @@ namespace IOProject.ActorControllers
 
         public ActorPostureController PostureController { get; private set; }
 
-        public void Initialize(ActorModel model)
+        public Actor Spawn(ActorModel model)
+        {
+            var actor = Instantiate(this);
+            actor.Initialize(model);
+            return actor;
+        }
+
+        private void Initialize(ActorModel model)
         {
             this.Model = model;
             this.LocatorController = new ActorLocatorController(locators);
