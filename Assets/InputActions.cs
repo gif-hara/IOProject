@@ -107,7 +107,7 @@ namespace IOProject
                 {
                     ""name"": ""right"",
                     ""id"": ""b400f87e-5f29-4c75-87e7-063ef15baa54"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
