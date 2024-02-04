@@ -26,7 +26,7 @@ namespace IOProject
             gameCameraController.SetLookAt(playerActor.LocatorController.GetLocator("View.FirstPerson.LookAt"));
             var playerActorController = new PlayerActorController();
             playerActorController.Attach(playerActor);
-            var stageChunk = Instantiate(this.stageChunkPrefab);
+            Instantiate(this.stageChunkPrefab);
         }
     }
 }
