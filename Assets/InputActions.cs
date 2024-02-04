@@ -37,6 +37,15 @@ namespace IOProject
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""586ef69c-6eed-421f-bf75-ffe1e049b5cd"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -50,6 +59,61 @@ namespace IOProject
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""f9106a76-319a-4d86-802c-2b847ef48c97"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""51a2667c-e39f-4ad1-aba0-40b56f8c0806"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""333d6b39-d81a-499f-83c2-efceb349c155"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""e8e414f2-73b3-4d96-ab4a-17469f950cfc"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""b400f87e-5f29-4c75-87e7-063ef15baa54"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -59,6 +123,7 @@ namespace IOProject
             // InGame
             m_InGame = asset.FindActionMap("InGame", throwIfNotFound: true);
             m_InGame_Look = m_InGame.FindAction("Look", throwIfNotFound: true);
+            m_InGame_Move = m_InGame.FindAction("Move", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -121,11 +186,13 @@ namespace IOProject
         private readonly InputActionMap m_InGame;
         private List<IInGameActions> m_InGameActionsCallbackInterfaces = new List<IInGameActions>();
         private readonly InputAction m_InGame_Look;
+        private readonly InputAction m_InGame_Move;
         public struct InGameActions
         {
             private @InputActions m_Wrapper;
             public InGameActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Look => m_Wrapper.m_InGame_Look;
+            public InputAction @Move => m_Wrapper.m_InGame_Move;
             public InputActionMap Get() { return m_Wrapper.m_InGame; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -138,6 +205,9 @@ namespace IOProject
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
             }
 
             private void UnregisterCallbacks(IInGameActions instance)
@@ -145,6 +215,9 @@ namespace IOProject
                 @Look.started -= instance.OnLook;
                 @Look.performed -= instance.OnLook;
                 @Look.canceled -= instance.OnLook;
+                @Move.started -= instance.OnMove;
+                @Move.performed -= instance.OnMove;
+                @Move.canceled -= instance.OnMove;
             }
 
             public void RemoveCallbacks(IInGameActions instance)
@@ -165,6 +238,7 @@ namespace IOProject
         public interface IInGameActions
         {
             void OnLook(InputAction.CallbackContext context);
+            void OnMove(InputAction.CallbackContext context);
         }
     }
 }
