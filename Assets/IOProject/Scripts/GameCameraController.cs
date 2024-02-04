@@ -8,10 +8,14 @@ namespace IOProject
         [SerializeField]
         private CinemachineVirtualCamera virtualCamera;
 
-        public void SetTarget(Transform target)
+        public void SetFollow(Transform follow)
         {
-            this.virtualCamera.Follow = target;
-            this.virtualCamera.LookAt = target;
+            this.virtualCamera.Follow = follow;
+        }
+
+        public void SetLookAt(Transform lookAt)
+        {
+            this.virtualCamera.LookAt = lookAt;
         }
     }
 }
