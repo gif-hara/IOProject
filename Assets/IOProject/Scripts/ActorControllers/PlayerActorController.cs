@@ -14,10 +14,12 @@ namespace IOProject.ActorControllers
             actor.GetAsyncUpdateTrigger()
                 .Subscribe(_ =>
                 {
+                    const float rotationSpeed = 0.5f;
+                    const float moveSpeed = 100.0f;
                     var inputController = TinyServiceLocator.Resolve<IInputController>();
-                    var look = inputController.Actions.InGame.Look.ReadValue<Vector2>();
+                    var look = inputController.Actions.InGame.Look.ReadValue<Vector2>() * rotationSpeed;
                     actor.Model.Rotation *= Quaternion.Euler(look.y, look.x, 0);
-                    var move = inputController.Actions.InGame.Move.ReadValue<Vector2>();
+                    var move = inputController.Actions.InGame.Move.ReadValue<Vector2>() * moveSpeed;
                     var yOnlyRotation = Quaternion.Euler(0, actor.Model.Rotation.eulerAngles.y, 0);
                     var forward = yOnlyRotation * Vector3.forward;
                     var right = yOnlyRotation * Vector3.right;
