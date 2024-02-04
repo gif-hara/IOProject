@@ -12,6 +12,9 @@ namespace IOProject
         [SerializeField]
         private GameCameraController gameCameraControllerPrefab;
 
+        [SerializeField]
+        private GameObject stageChunkPrefab;
+
         async void Start()
         {
             await BootSystem.IsReady;
@@ -23,6 +26,7 @@ namespace IOProject
             gameCameraController.SetLookAt(playerActor.LocatorController.GetLocator("View.FirstPerson.LookAt"));
             var playerActorController = new PlayerActorController();
             playerActorController.Attach(playerActor);
+            var stageChunk = Instantiate(this.stageChunkPrefab);
         }
     }
 }
