@@ -19,12 +19,6 @@ namespace IOProject
         async void Start()
         {
             await HK.Framework.BootSystems.BootSystem.IsReady;
-            ActorEvents.OnSpawned
-                .Subscribe(x =>
-                {
-                    Debug.Log($"Actor spawned: {x}");
-                })
-                .AddTo(this.destroyCancellationToken);
             TinyServiceLocator.RegisterAsync<IInputController>(new InputController(), this.destroyCancellationToken).Forget();
             var playerActor = playerActorPrefab.Spawn(new ActorModel());
             var gameCameraController = Instantiate(this.gameCameraControllerPrefab);
