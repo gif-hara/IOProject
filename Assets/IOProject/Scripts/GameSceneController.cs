@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace IOProject
 {
-    public class BattleSceneController : SceneController
+    public class GameSceneController : SceneController
     {
         [SerializeField]
         private Actor playerActorPrefab;
