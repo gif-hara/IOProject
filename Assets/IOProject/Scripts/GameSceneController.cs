@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using HK.Framework.BootSystems;
 using IOProject.ActorControllers;
 using SoftGear.Strix.Net.Logging;
 using SoftGear.Strix.Unity.Runtime;
@@ -9,6 +8,9 @@ namespace IOProject
 {
     public class GameSceneController : SceneController
     {
+        [SerializeField]
+        private PlayerSpec playerSpec;
+
         [SerializeField]
         private Actor playerActorPrefab;
 
@@ -28,7 +30,7 @@ namespace IOProject
             gameCameraController.SetFollow(playerActor.LocatorController.GetLocator("View.FirstPerson.Follow"));
             gameCameraController.SetLookAt(playerActor.LocatorController.GetLocator("View.FirstPerson.LookAt"));
             var playerActorController = new PlayerActorController();
-            playerActorController.Attach(playerActor);
+            playerActorController.Attach(playerActor, playerSpec);
             Instantiate(this.stageChunkPrefab);
         }
 
