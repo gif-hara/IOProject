@@ -18,7 +18,7 @@ namespace IOProject.ActorControllers
                     const float moveSpeed = 50.0f;
                     var inputController = TinyServiceLocator.Resolve<IInputController>();
                     var look = inputController.Actions.InGame.Look.ReadValue<Vector2>() * rotationSpeed;
-                    actor.Model.Rotation *= Quaternion.Euler(look.y, look.x, 0);
+                    actor.Model.Rotation *= Quaternion.Euler(look.y, -look.x, 0);
                     var move = inputController.Actions.InGame.Move.ReadValue<Vector2>() * moveSpeed;
                     var yOnlyRotation = Quaternion.Euler(0, actor.Model.Rotation.eulerAngles.y, 0);
                     var forward = yOnlyRotation * Vector3.forward;
