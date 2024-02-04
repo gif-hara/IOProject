@@ -15,7 +15,7 @@ namespace IOProject.ActorControllers
                 .Subscribe(_ =>
                 {
                     const float rotationSpeed = 0.5f;
-                    const float moveSpeed = 100.0f;
+                    const float moveSpeed = 50.0f;
                     var inputController = TinyServiceLocator.Resolve<IInputController>();
                     var look = inputController.Actions.InGame.Look.ReadValue<Vector2>() * rotationSpeed;
                     actor.Model.Rotation *= Quaternion.Euler(look.y, look.x, 0);
