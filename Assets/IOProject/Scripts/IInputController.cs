@@ -6,5 +6,7 @@ namespace IOProject
     public interface IInputController
     {
         public InputActions Actions { get; }
+
+        public void SetCursorVisibliity(bool isVisible);
     }
 }

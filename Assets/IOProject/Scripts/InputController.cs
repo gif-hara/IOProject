@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace IOProject
 {
     public class InputController : IInputController
@@ -9,6 +11,12 @@ namespace IOProject
         public InputController()
         {
             actions.Enable();
+        }
+
+        public void SetCursorVisibliity(bool isVisible)
+        {
+            Cursor.visible = isVisible;
+            Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
 }
