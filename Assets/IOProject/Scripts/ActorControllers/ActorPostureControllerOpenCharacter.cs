@@ -50,7 +50,6 @@ namespace IOProject.ActorControllers
         {
             rotationX += eulerAngle.x;
             rotationY += eulerAngle.y;
-            Debug.Log($"rotationX: {rotationX}, rotationY: {rotationY}");
             rotationX = Mathf.Clamp(rotationX, -89, 89);
             rotationY = Mathf.Repeat(rotationY, 360);
             foreach (var t in rotationXTransforms)
