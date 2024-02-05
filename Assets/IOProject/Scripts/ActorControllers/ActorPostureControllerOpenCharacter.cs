@@ -46,13 +46,13 @@ namespace IOProject.ActorControllers
             this.velocity += velocity;
         }
 
-        public void AddRotate(Quaternion rotation)
+        public void AddRotate(Vector3 eulerAngle)
         {
-            var euler = rotation.eulerAngles;
-            rotationX += euler.x;
-            rotationY += euler.y;
-            // rotationX = Mathf.Clamp(rotationX, -90, 90);
-            // rotationY = Mathf.Repeat(rotationY, 360);
+            rotationX += eulerAngle.x;
+            rotationY += eulerAngle.y;
+            Debug.Log($"rotationX: {rotationX}, rotationY: {rotationY}");
+            rotationX = Mathf.Clamp(rotationX, -89, 89);
+            rotationY = Mathf.Repeat(rotationY, 360);
             foreach (var t in rotationXTransforms)
             {
                 t.localEulerAngles = new Vector3(rotationX, 0, 0);

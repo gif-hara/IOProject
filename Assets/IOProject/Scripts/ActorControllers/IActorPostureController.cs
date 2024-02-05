@@ -11,6 +11,6 @@ namespace IOProject.ActorControllers
 
         void AddMove(Vector3 velocity);
 
-        void AddRotate(Quaternion rotation);
+        void AddRotate(Vector3 eulerAngle);
     }
 }

@@ -16,7 +16,7 @@ namespace IOProject.ActorControllers
                 {
                     var inputController = TinyServiceLocator.Resolve<IInputController>();
                     var look = inputController.Actions.InGame.Look.ReadValue<Vector2>() * playerSpec.rotateSpeed;
-                    actor.PostureController.AddRotate(Quaternion.Euler(-look.y, look.x, 0));
+                    actor.PostureController.AddRotate(new Vector3(-look.y, look.x, 0));
                     var move = inputController.Actions.InGame.Move.ReadValue<Vector2>() * playerSpec.moveSpeed;
                     var yOnlyRotation = Quaternion.Euler(0, actor.transform.rotation.eulerAngles.y, 0);
                     var forward = yOnlyRotation * Vector3.forward;
