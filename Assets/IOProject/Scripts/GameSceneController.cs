@@ -25,6 +25,7 @@ namespace IOProject
             await HK.Framework.BootSystems.BootSystem.IsReady;
             ConnectMasterServer();
             TinyServiceLocator.RegisterAsync<IInputController>(new InputController(), this.destroyCancellationToken).Forget();
+            TinyServiceLocator.Resolve<IInputController>().SetCursorVisibliity(false);
             var playerActor = playerActorPrefab.Spawn(new ActorModel());
             var gameCameraController = Instantiate(this.gameCameraControllerPrefab);
             gameCameraController.SetFollow(playerActor.LocatorController.GetLocator("View.FirstPerson.Follow"));
