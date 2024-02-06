@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6955469626339927863}
   - component: {fileID: 3597405376476379763}
   m_Layer: 5
-  m_Name: MyUIDocument
+  m_Name: UI.Sample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
