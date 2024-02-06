@@ -6,7 +6,7 @@ var LibraryStrixWebSocket = {
             Strix.webSockets = {};
         }
         
-        var urlString = Pointer_stringify(url);
+        var urlString = UTF8ToString(url);
         var webSocket = new WebSocket(urlString);
         webSocket.binaryType = "arraybuffer";
         
