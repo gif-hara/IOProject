@@ -39,7 +39,7 @@ namespace IOProject
         {
             LogManager.Instance.Filter = Level.INFO;
             StrixNetwork.instance.applicationId = "686bc912-86ae-4134-a39c-cb4884d95eff";
-            StrixNetwork.instance.ConnectMasterServer("63da7b783afd86c8787cffbf.game.strixcloud.net", 9122,
+            StrixNetwork.instance.ConnectMasterServer("wss://63da7b783afd86c8787cffbf.game.strixcloud.net:9122",
                 args =>
                 {
                     Debug.Log($"connectEventHandler: {args}");
