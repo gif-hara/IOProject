@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: be2b7fa8d4912354ebcb689456d62464
   m_SerializeEntries:
-  - m_GUID: 4963ad20981f46d45a509cbd8236c1eb
-    m_Address: Assets/IOProject/UI
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f93dcd548fe668a48bbe250b75f96d36
     m_Address: Assets/IOProject/Prefabs
     m_ReadOnly: 0

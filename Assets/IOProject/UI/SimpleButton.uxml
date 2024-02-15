@@ -1,7 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/IOProject/UI/IOProject.uss?fileID=7433441132597879392&amp;guid=072e015454c2400448e900ea8fbe38bf&amp;type=3#IOProject" />
-    <ui:VisualElement name="Base" style="background-color: rgba(255, 0, 0, 0.54); align-items: center; flex-grow: 0; align-self: flex-start; transition-duration: 100s; transition-property: all; transition-timing-function: ease-in; opacity: 1;">
-        <ui:Button text="Test" name="Button1" />
-        <ui:Label text="SimpleButtonHere" name="Label1" style="-unity-text-align: middle-center;" />
-    </ui:VisualElement>
-</ui:UXML>
