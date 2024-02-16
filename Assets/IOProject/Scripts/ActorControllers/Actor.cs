@@ -8,23 +8,20 @@ namespace IOProject.ActorControllers
         [SerializeField]
         private List<ActorLocatorController.LocatorData> locators;
 
-        public ActorModel Model { get; private set; }
-
         public ActorLocatorController LocatorController { get; private set; }
 
         public IActorPostureController PostureController { get; private set; }
 
-        public Actor Spawn(ActorModel model)
+        public Actor Spawn()
         {
             var actor = Instantiate(this);
-            actor.Initialize(model);
+            actor.Initialize();
             ActorEvents.OnSpawned.Publish(actor);
             return actor;
         }
 
-        private void Initialize(ActorModel model)
+        private void Initialize()
         {
-            this.Model = model;
             this.LocatorController = new ActorLocatorController(locators);
             this.PostureController = GetComponent<IActorPostureController>();
             this.PostureController.Setup(this);
