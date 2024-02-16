@@ -48,9 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locators: []
-  positionTransforms: []
-  rotationXTransforms: []
-  rotationYTransforms: []
 --- !u!114 &-1804719526980325351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strixBehaviours:
+  - {fileID: -2475170256125632000}
   - {fileID: -1066504408713172967}
   objectType: 2
   sendRate: 5
