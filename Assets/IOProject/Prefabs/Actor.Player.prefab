@@ -116,6 +116,7 @@ Transform:
   m_Children:
   - {fileID: 6706375343060715102}
   - {fileID: 3191811173216741504}
+  - {fileID: 636678970834919245}
   m_Father: {fileID: 7848413757408860772}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1816369068451479253
@@ -151,6 +152,37 @@ Transform:
   - {fileID: 9211902053515655491}
   - {fileID: 2234309221570054987}
   m_Father: {fileID: 8661464945977067354}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2814083614157308302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 636678970834919245}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &636678970834919245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2814083614157308302}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1328247885837817705}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5215409777939397153
 GameObject:
@@ -492,7 +524,7 @@ PrefabInstance:
       objectReference: {fileID: 3326241509840061173}
     - target: {fileID: -2475170256125632000, guid: 2d7c17d0355327647a55ccb56e6ba2ce, type: 3}
       propertyPath: locators.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -2475170256125632000, guid: 2d7c17d0355327647a55ccb56e6ba2ce, type: 3}
       propertyPath: locators.Array.data[0].name
@@ -509,6 +541,10 @@ PrefabInstance:
     - target: {fileID: -2475170256125632000, guid: 2d7c17d0355327647a55ccb56e6ba2ce, type: 3}
       propertyPath: locators.Array.data[3].name
       value: View.FirstPerson.LookAt
+      objectReference: {fileID: 0}
+    - target: {fileID: -2475170256125632000, guid: 2d7c17d0355327647a55ccb56e6ba2ce, type: 3}
+      propertyPath: locators.Array.data[4].name
+      value: FirePoint
       objectReference: {fileID: 0}
     - target: {fileID: -2475170256125632000, guid: 2d7c17d0355327647a55ccb56e6ba2ce, type: 3}
       propertyPath: positionTransforms.Array.size
@@ -531,6 +567,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6706375343060715102}
     - target: {fileID: -2475170256125632000, guid: 2d7c17d0355327647a55ccb56e6ba2ce, type: 3}
+      propertyPath: locators.Array.data[4].locator
+      value: 
+      objectReference: {fileID: 636678970834919245}
+    - target: {fileID: -2475170256125632000, guid: 2d7c17d0355327647a55ccb56e6ba2ce, type: 3}
       propertyPath: rotationXTransforms.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -552,7 +592,7 @@ PrefabInstance:
       objectReference: {fileID: 3326241509840061173}
     - target: {fileID: -1804719526980325351, guid: 2d7c17d0355327647a55ccb56e6ba2ce, type: 3}
       propertyPath: objectType
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2925725599150167715, guid: 2d7c17d0355327647a55ccb56e6ba2ce, type: 3}
       propertyPath: m_LocalScale.x

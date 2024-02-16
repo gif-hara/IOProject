@@ -28,7 +28,8 @@ namespace IOProject.ActorControllers
             inputController.Actions.InGame.Fire.OnPerformedAsync()
                 .Subscribe(_ =>
                 {
-                    Debug.Log("Fire!");
+                    var firePoint = actor.LocatorController.GetLocator("FirePoint");
+                    Object.Instantiate(playerSpec.projectilePrefab, firePoint.position, firePoint.rotation);
                 })
                 .AddTo(actor.destroyCancellationToken);
         }
