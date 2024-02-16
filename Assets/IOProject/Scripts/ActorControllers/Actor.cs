@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using SoftGear.Strix.Unity.Runtime;
 using UnityEngine;
 
 namespace IOProject.ActorControllers
 {
-    public class Actor : MonoBehaviour
+    public class Actor : StrixBehaviour
     {
         [SerializeField]
         private List<ActorLocatorController.LocatorData> locators;
