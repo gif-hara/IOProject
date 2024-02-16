@@ -23,7 +23,7 @@ namespace IOProject
         async void Start()
         {
             await HK.Framework.BootSystems.BootSystem.IsReady;
-            ConnectMasterServer();
+            await ConnectMasterServerAsync();
             TinyServiceLocator.RegisterAsync<IInputController>(new InputController(), this.destroyCancellationToken).Forget();
             TinyServiceLocator.Resolve<IInputController>().SetCursorVisibliity(false);
             var playerActor = playerActorPrefab.Spawn();
@@ -35,40 +35,51 @@ namespace IOProject
             Instantiate(this.stageChunkPrefab);
         }
 
-        private void ConnectMasterServer()
+        private async UniTask ConnectMasterServerAsync()
         {
+            var source = new UniTaskCompletionSource();
             LogManager.Instance.Filter = Level.INFO;
             StrixNetwork.instance.applicationId = "686bc912-86ae-4134-a39c-cb4884d95eff";
             StrixNetwork.instance.ConnectMasterServer("wss://63da7b783afd86c8787cffbf.game.strixcloud.net:9122",
-                args =>
+                async args =>
                 {
                     Debug.Log($"connectEventHandler: {args}");
-                    JoinRandomRoom();
+                    await JoinRandomRoomAsync();
+                    source.TrySetResult();
                 },
                 args =>
                 {
                     Debug.Log($"errorEventHandler: {args}");
+                    source.TrySetException(new System.Exception(args.ToString()));
                 }
             );
+
+            await source.Task;
         }
 
-        private void JoinRandomRoom()
+        private async UniTask JoinRandomRoomAsync()
         {
+            var source = new UniTaskCompletionSource();
             StrixNetwork.instance.JoinRandomRoom("Test",
                 args =>
                 {
                     Debug.Log($"joinRoomEventHandler: {args}");
+                    source.TrySetResult();
                 },
-                args =>
+                async args =>
                 {
                     Debug.Log($"failreRoomEventHandler: {args}");
-                    CreateRoom();
+                    await CreateRoomAsync();
+                    source.TrySetResult();
                 }
             );
+
+            await source.Task;
         }
 
-        private void CreateRoom()
+        private async UniTask CreateRoomAsync()
         {
+            var source = new UniTaskCompletionSource();
             var roomProperties = new RoomProperties
             {
                 capacity = 100,
@@ -82,12 +93,16 @@ namespace IOProject
                 args =>
                 {
                     Debug.Log($"createRoomEventHandler: {args}");
+                    source.TrySetResult();
                 },
                 args =>
                 {
                     Debug.Log($"failureCreateRoomEventHandler: {args}");
+                    source.TrySetException(new System.Exception(args.ToString()));
                 }
             );
+
+            await source.Task;
         }
     }
 }
