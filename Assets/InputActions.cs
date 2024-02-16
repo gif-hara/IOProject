@@ -46,6 +46,15 @@ namespace IOProject
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""8be7009e-dfcd-43bf-9f5f-2612c6c51c87"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -136,6 +145,28 @@ namespace IOProject
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0fbf475-fb7e-42a7-a092-52154bdc1441"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc0be6e2-05ca-4198-8238-0c4e08401fd6"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -146,6 +177,7 @@ namespace IOProject
             m_InGame = asset.FindActionMap("InGame", throwIfNotFound: true);
             m_InGame_Look = m_InGame.FindAction("Look", throwIfNotFound: true);
             m_InGame_Move = m_InGame.FindAction("Move", throwIfNotFound: true);
+            m_InGame_Fire = m_InGame.FindAction("Fire", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -209,12 +241,14 @@ namespace IOProject
         private List<IInGameActions> m_InGameActionsCallbackInterfaces = new List<IInGameActions>();
         private readonly InputAction m_InGame_Look;
         private readonly InputAction m_InGame_Move;
+        private readonly InputAction m_InGame_Fire;
         public struct InGameActions
         {
             private @InputActions m_Wrapper;
             public InGameActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Look => m_Wrapper.m_InGame_Look;
             public InputAction @Move => m_Wrapper.m_InGame_Move;
+            public InputAction @Fire => m_Wrapper.m_InGame_Fire;
             public InputActionMap Get() { return m_Wrapper.m_InGame; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -230,6 +264,9 @@ namespace IOProject
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
             }
 
             private void UnregisterCallbacks(IInGameActions instance)
@@ -240,6 +277,9 @@ namespace IOProject
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
+                @Fire.started -= instance.OnFire;
+                @Fire.performed -= instance.OnFire;
+                @Fire.canceled -= instance.OnFire;
             }
 
             public void RemoveCallbacks(IInGameActions instance)
@@ -261,6 +301,7 @@ namespace IOProject
         {
             void OnLook(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
+            void OnFire(InputAction.CallbackContext context);
         }
     }
 }
