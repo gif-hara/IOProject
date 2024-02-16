@@ -9,12 +9,12 @@ namespace IOProject.ActorControllers
     {
         public void Attach(Actor actor, PlayerSpec playerSpec)
         {
+            var inputController = TinyServiceLocator.Resolve<IInputController>();
             actor.LocatorController.GetLocator("View.ThirdPerson").gameObject.SetActive(false);
             actor.LocatorController.GetLocator("View.FirstPerson").gameObject.SetActive(true);
             actor.GetAsyncUpdateTrigger()
                 .Subscribe(_ =>
                 {
-                    var inputController = TinyServiceLocator.Resolve<IInputController>();
                     var look = inputController.Actions.InGame.Look.ReadValue<Vector2>() * playerSpec.rotateSpeed;
                     actor.PostureController.AddRotate(new Vector3(-look.y, look.x, 0));
                     var move = inputController.Actions.InGame.Move.ReadValue<Vector2>() * playerSpec.moveSpeed;
@@ -23,6 +23,12 @@ namespace IOProject.ActorControllers
                     var right = yOnlyRotation * Vector3.right;
                     var vector = forward * move.y + right * move.x;
                     actor.PostureController.AddMove(new Vector3(vector.x, 0.0f, vector.z) * Time.deltaTime);
+                })
+                .AddTo(actor.destroyCancellationToken);
+            inputController.Actions.InGame.Fire.OnPerformedAsync()
+                .Subscribe(_ =>
+                {
+                    Debug.Log("Fire!");
                 })
                 .AddTo(actor.destroyCancellationToken);
         }
