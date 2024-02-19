@@ -11,12 +11,12 @@ namespace IOProject
     public sealed class Projectile : MonoBehaviour
     {
         [SerializeReference, SubclassSelector]
-        private List<ISequence> sequences;
+        private List<ISequence> onEnableSequence;
 
         void OnEnable()
         {
             var container = new Container();
-            var sequencer = new Sequencer(container, this.sequences);
+            var sequencer = new Sequencer(container, onEnableSequence);
             sequencer.PlayAsync(destroyCancellationToken).Forget();
         }
     }
