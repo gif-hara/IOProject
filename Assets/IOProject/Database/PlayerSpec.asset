@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 14
   rotateSpeed: 0.3
-  projectilePrefab: {fileID: 2588307252335620167, guid: 61c49ec161b7e0a458204646ab844fff, type: 3}
+  projectilePrefab: {fileID: 8665686412741492718, guid: 61c49ec161b7e0a458204646ab844fff, type: 3}
