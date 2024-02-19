@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da40e653cd1d89a4ca977b26596c1db5, type: 3}
   m_Name: PlayerSpec
   m_EditorClassIdentifier: 
-  moveSpeed: 14
+  moveSpeed: 11
   rotateSpeed: 0.3
   projectilePrefab: {fileID: 8665686412741492718, guid: 61c49ec161b7e0a458204646ab844fff, type: 3}
