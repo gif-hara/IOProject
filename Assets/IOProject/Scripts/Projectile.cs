@@ -12,15 +12,18 @@ namespace IOProject
     /// </summary>
     public sealed class Projectile : MonoBehaviour
     {
-        [SerializeReference, SubclassSelector, FormerlySerializedAs("onEnableSequence")]
+        [SerializeReference, SubclassSelector]
         private List<ISequence> onSpawnSequence;
 
         [SerializeReference, SubclassSelector]
-        private List<ISequence> onTriggerEnterSequence;
+        private List<ISequence> onHitActorSequence;
 
-        public void Spawn(Vector3 position, Quaternion rotation)
+        private Actor owner;
+
+        public void Spawn(Actor owner, Vector3 position, Quaternion rotation)
         {
             var projectile = Instantiate(this, position, rotation);
+            projectile.owner = owner;
             projectile.InvokeSpawnSequence();
         }
 
@@ -33,9 +36,19 @@ namespace IOProject
 
         void OnTriggerEnter(Collider other)
         {
+            var targetActor = other.GetComponentInParent<Actor>();
+            if (targetActor == null)
+            {
+                return;
+            }
+            if (owner == targetActor)
+            {
+                return;
+            }
             var container = new Container();
-            container.Register("TargetActor", other.GetComponentInParent<Actor>());
-            var sequencer = new Sequencer(container, onTriggerEnterSequence);
+            container.Register("OwnerActor", owner);
+            container.Register("TargetActor", targetActor);
+            var sequencer = new Sequencer(container, onHitActorSequence);
             sequencer.PlayAsync(destroyCancellationToken).Forget();
         }
     }
