@@ -27,5 +27,20 @@ namespace IOProject.ActorControllers
             this.PostureController = GetComponent<IActorPostureController>();
             this.PostureController.Setup(this);
         }
+
+        public void GiveDamage(Actor targetActor)
+        {
+            if (!isLocal)
+            {
+                return;
+            }
+            targetActor.RpcToAll("TakeDamage", 10);
+        }
+
+        [StrixRpc]
+        public void TakeDamage(int damage)
+        {
+            Debug.Log($"TakeDamage: {damage}", this);
+        }
     }
 }
