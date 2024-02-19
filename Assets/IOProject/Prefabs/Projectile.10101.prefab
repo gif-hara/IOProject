@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1382452155017292660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5090023801179034472}
+  - component: {fileID: 4571150652194602270}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5090023801179034472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382452155017292660}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7746196622940704864}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!136 &4571150652194602270
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1382452155017292660}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2941082116605643180
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,6 +85,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7455137019416767288}
+  - {fileID: 5090023801179034472}
   m_Father: {fileID: 5323925625627555662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8627691635948067330
@@ -43,7 +99,6 @@ GameObject:
   - component: {fileID: 7455137019416767288}
   - component: {fileID: 7501978545414466998}
   - component: {fileID: 2343611437533227948}
-  - component: {fileID: 8263960928644646160}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -61,7 +116,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7746196622940704864}
@@ -118,29 +173,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8263960928644646160
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8627691635948067330}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3561666328260879174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,164 +182,116 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: sequences.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: 'managedReferences[-2]'
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'sequences.Array.data[0]'
-      value: 7038082124307496960
+      propertyPath: onEnableSequence.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'sequences.Array.data[1]'
-      value: 7038082124307497139
+      propertyPath: 'onEnableSequence.Array.data[0]'
+      value: 7038082124307497142
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'managedReferences[7038082124307496960]'
+      propertyPath: 'onEnableSequence.Array.data[1]'
+      value: 7038082124307497148
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: 'managedReferences[7038082124307497142]'
       value: UnitySequencerSystem UnitySequencerSystem.LitMotion.BindToLocalPositionZ
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'managedReferences[7038082124307496961]'
+      propertyPath: 'managedReferences[7038082124307497143]'
       value: UnitySequencerSystem UnitySequencerSystem.Resolvers.TransformResolver/Reference
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'managedReferences[7038082124307496962]'
+      propertyPath: 'managedReferences[7038082124307497144]'
       value: UnitySequencerSystem UnitySequencerSystem.Resolvers.FloatResolver/Constant
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'managedReferences[7038082124307496963]'
+      propertyPath: 'managedReferences[7038082124307497145]'
       value: UnitySequencerSystem UnitySequencerSystem.Resolvers.FloatResolver/Constant
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'managedReferences[7038082124307496964]'
+      propertyPath: 'managedReferences[7038082124307497146]'
       value: UnitySequencerSystem UnitySequencerSystem.Resolvers.FloatResolver/Constant
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'managedReferences[7038082124307496965]'
-      value: UnitySequencerSystem UnitySequencerSystem.Resolvers.FloatResolver/Constant
-      objectReference: {fileID: 0}
-    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'managedReferences[7038082124307496966]'
+      propertyPath: 'managedReferences[7038082124307497147]'
       value: UnitySequencerSystem UnitySequencerSystem.Resolvers.LitMotion.MotionSchedulerResolver/Update
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'managedReferences[7038082124307497139]'
+      propertyPath: 'managedReferences[7038082124307497148]'
       value: UnitySequencerSystem UnitySequencerSystem.StandardSequences.GameObjectDestroy
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'managedReferences[7038082124307497140]'
+      propertyPath: 'managedReferences[7038082124307497149]'
       value: UnitySequencerSystem UnitySequencerSystem.Resolvers.GameObjectResolver/ReferenceGameObject
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496962].value
+      propertyPath: managedReferences[7038082124307497144].value
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496963].value
+      propertyPath: managedReferences[7038082124307497145].value
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496964].value
+      propertyPath: managedReferences[7038082124307497146].value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496965].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496961].target
+      propertyPath: managedReferences[7038082124307497143].target
       value: 
       objectReference: {fileID: 7746196622940704864}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307497140].target
+      propertyPath: managedReferences[7038082124307497149].target
       value: 
       objectReference: {fileID: 2588307252335620167}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496960].targetResolver
-      value: 7038082124307496961
+      propertyPath: managedReferences[7038082124307497142].targetResolver
+      value: 7038082124307497143
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307497139].targetResolver
-      value: 7038082124307497140
+      propertyPath: managedReferences[7038082124307497148].targetResolver
+      value: 7038082124307497149
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496960].parameters.ease
+      propertyPath: managedReferences[7038082124307497142].parameters.ease
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496960].parameters.loopType
+      propertyPath: managedReferences[7038082124307497142].parameters.loopType
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496960].parameters.toResolver
-      value: 7038082124307496963
+      propertyPath: managedReferences[7038082124307497142].parameters.toResolver
+      value: 7038082124307497145
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496960].parameters.fromResolver
-      value: 7038082124307496962
+      propertyPath: managedReferences[7038082124307497142].parameters.fromResolver
+      value: 7038082124307497144
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496960].parameters.delayResolver
+      propertyPath: managedReferences[7038082124307497142].parameters.delayResolver
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496960].parameters.durationResolver
-      value: 7038082124307496964
+      propertyPath: managedReferences[7038082124307497142].parameters.durationResolver
+      value: 7038082124307497146
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496960].parameters.loopCountResolver
+      propertyPath: managedReferences[7038082124307497142].parameters.loopCountResolver
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307496960].parameters.motionSchedulerResolver
-      value: 7038082124307496966
+      propertyPath: managedReferences[7038082124307497142].parameters.motionSchedulerResolver
+      value: 7038082124307497147
       objectReference: {fileID: 0}
     - target: {fileID: 1334779749552984833, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: m_Name
       value: Projectile.10101
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687433242788533256, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687433242788533256, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687433242788533256, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687433242788533256, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687433242788533256, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687433242788533256, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687433242788533256, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687433242788533256, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687433242788533256, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8687433242788533256, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
