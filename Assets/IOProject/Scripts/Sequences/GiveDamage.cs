@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using IOProject.ActorControllers;
@@ -9,6 +10,8 @@ namespace IOProject.Sequences
     /// <summary>
     /// <see cref="Actor"/>にダメージを与えるシーケンス
     /// </summary>
+    [AddTypeMenu("IOProject/GiveDamage")]
+    [Serializable]
     public sealed class GiveDamage : ISequence
     {
         [SerializeField]
