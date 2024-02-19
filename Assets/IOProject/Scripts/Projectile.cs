@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using IOProject.ActorControllers;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnitySequencerSystem;
 
 namespace IOProject
@@ -11,16 +12,22 @@ namespace IOProject
     /// </summary>
     public sealed class Projectile : MonoBehaviour
     {
-        [SerializeReference, SubclassSelector]
-        private List<ISequence> onEnableSequence;
+        [SerializeReference, SubclassSelector, FormerlySerializedAs("onEnableSequence")]
+        private List<ISequence> onSpawnSequence;
 
         [SerializeReference, SubclassSelector]
         private List<ISequence> onTriggerEnterSequence;
 
-        void OnEnable()
+        public void Spawn(Vector3 position, Quaternion rotation)
+        {
+            var projectile = Instantiate(this, position, rotation);
+            projectile.InvokeSpawnSequence();
+        }
+
+        private void InvokeSpawnSequence()
         {
             var container = new Container();
-            var sequencer = new Sequencer(container, onEnableSequence);
+            var sequencer = new Sequencer(container, onSpawnSequence);
             sequencer.PlayAsync(destroyCancellationToken).Forget();
         }
 

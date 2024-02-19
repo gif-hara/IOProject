@@ -29,7 +29,7 @@ namespace IOProject.ActorControllers
                 .Subscribe(_ =>
                 {
                     var firePoint = actor.LocatorController.GetLocator("FirePoint");
-                    Object.Instantiate(playerSpec.projectilePrefab, firePoint.position, firePoint.rotation);
+                    playerSpec.projectilePrefab.Spawn(firePoint.position, firePoint.rotation);
                 })
                 .AddTo(actor.destroyCancellationToken);
         }
