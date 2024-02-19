@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba67192e8dcbc548a77dfccaa9ae1ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sequences: []
+  onEnableSequence: []
   references:
     version: 2
     RefIds: []
