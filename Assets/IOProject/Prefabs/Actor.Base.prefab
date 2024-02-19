@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -2475170256125632000}
   - component: {fileID: -1804719526980325351}
   - component: {fileID: -1066504408713172967}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Actor.Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2925725599150167715}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
