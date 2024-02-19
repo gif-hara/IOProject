@@ -262,6 +262,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2588307252335620167}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: managedReferences[7038082124307497163].damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082124307497142].targetResolver
       value: 7038082124307497143
       objectReference: {fileID: 0}
