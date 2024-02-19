@@ -15,12 +15,16 @@ namespace IOProject.Sequences
     public sealed class GiveDamage : ISequence
     {
         [SerializeField]
+        private string ownerActorName;
+
+        [SerializeField]
         private string targetActorName;
 
         public UniTask PlayAsync(Container container, CancellationToken cancellationToken)
         {
+            var ownerActor = container.Resolve<Actor>(ownerActorName);
             var targetActor = container.Resolve<Actor>(targetActorName);
-            Debug.Log($"GiveDamage: {targetActor}");
+            ownerActor.GiveDamage(targetActor);
 
             return UniTask.CompletedTask;
         }
