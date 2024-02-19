@@ -28,19 +28,19 @@ namespace IOProject.ActorControllers
             this.PostureController.Setup(this);
         }
 
-        public void GiveDamage(Actor targetActor)
+        public void GiveDamage(Actor targetActor, int damage)
         {
             if (!isLocal)
             {
                 return;
             }
-            targetActor.RpcToAll("TakeDamage", 10);
+            targetActor.RpcToAll("TakeDamage", this.strixReplicator.networkInstanceId, damage);
         }
 
         [StrixRpc]
-        public void TakeDamage(int damage)
+        public void TakeDamage(long attackerNetworkInstanceId, int damage)
         {
-            Debug.Log($"TakeDamage: {damage}", this);
+            Debug.Log($"TakeDamage: attackerNetworkInstanceId = {attackerNetworkInstanceId}, myNetworkInstanceId = {this.strixReplicator.networkInstanceId}, damage = {damage}", this);
         }
     }
 }

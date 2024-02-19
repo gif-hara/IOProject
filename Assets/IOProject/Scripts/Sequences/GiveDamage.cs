@@ -20,11 +20,14 @@ namespace IOProject.Sequences
         [SerializeField]
         private string targetActorName;
 
+        [SerializeField]
+        private int damage;
+
         public UniTask PlayAsync(Container container, CancellationToken cancellationToken)
         {
             var ownerActor = container.Resolve<Actor>(ownerActorName);
             var targetActor = container.Resolve<Actor>(targetActorName);
-            ownerActor.GiveDamage(targetActor);
+            ownerActor.GiveDamage(targetActor, damage);
 
             return UniTask.CompletedTask;
         }
