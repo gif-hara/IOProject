@@ -20,6 +20,9 @@ namespace IOProject
         [SerializeField]
         private GameObject stageChunkPrefab;
 
+        [SerializeField]
+        private HKUIDocument reticleUIPrefab;
+
         async void Start()
         {
             await HK.Framework.BootSystems.BootSystem.IsReady;
@@ -33,6 +36,7 @@ namespace IOProject
             var playerActorController = new PlayerActorController();
             playerActorController.Attach(playerActor, playerSpec);
             Instantiate(this.stageChunkPrefab);
+            var reticleUI = Instantiate(this.reticleUIPrefab);
         }
 
         private async UniTask ConnectMasterServerAsync()
