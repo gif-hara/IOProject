@@ -4,6 +4,7 @@ using IOProject.ActorControllers;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnitySequencerSystem;
+using R3;
 
 namespace IOProject
 {
@@ -24,14 +25,26 @@ namespace IOProject
         {
             var projectile = Instantiate(this, position, rotation);
             projectile.owner = owner;
-            projectile.InvokeSpawnSequence();
+            projectile.OnSpawn();
         }
 
-        private void InvokeSpawnSequence()
+        private void OnSpawn()
         {
             var container = new Container();
             var sequencer = new Sequencer(container, onSpawnSequence);
             sequencer.PlayAsync(destroyCancellationToken).Forget();
+
+            var localActor = TinyServiceLocator.Resolve<Actor>("LocalActor");
+            var originPositionId = localActor.PostureController.PositionIdReactiveProperty.CurrentValue;
+            localActor.PostureController.PositionIdReactiveProperty
+                .Subscribe(positionId =>
+                {
+                    var stageChunkSize = TinyServiceLocator.Resolve<GameDesignData>().StageChunkSize;
+                    var diff = originPositionId - positionId;
+                    transform.position += new Vector3(diff.x * stageChunkSize, 0, diff.y * stageChunkSize);
+                    originPositionId = positionId;
+                })
+                .AddTo(destroyCancellationToken);
         }
 
         void OnTriggerEnter(Collider other)
