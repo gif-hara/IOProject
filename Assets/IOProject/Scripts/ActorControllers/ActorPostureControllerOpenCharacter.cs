@@ -40,7 +40,7 @@ namespace IOProject.ActorControllers
                     if (velocity != Vector3.zero)
                     {
                         characterController.Move(velocity);
-                        const int chunkSize = 50;
+                        var chunkSize = TinyServiceLocator.Resolve<GameDesignData>().StageChunkSize;
                         var newPositionId = new Vector2Int(Mathf.FloorToInt(transform.position.x / chunkSize), Mathf.FloorToInt(transform.position.z / chunkSize));
                         if (positionIdReactiveProperty.Value != newPositionId)
                         {
