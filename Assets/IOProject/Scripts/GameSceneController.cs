@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using IOProject.ActorControllers;
+using R3;
 using SoftGear.Strix.Net.Logging;
 using SoftGear.Strix.Unity.Runtime;
 using UnityEngine;
@@ -35,12 +36,10 @@ namespace IOProject
             gameCameraController.SetLookAt(playerActor.LocatorController.GetLocator("View.FirstPerson.LookAt"));
             var playerActorController = new PlayerActorController();
             playerActorController.Attach(playerActor, playerSpec);
+            var stageController = new StageController(stageChunkPrefab);
+            stageController.BeginGenerate(playerActor);
+            Instantiate(this.stageChunkPrefab);
             var reticleUI = Instantiate(this.reticleUIPrefab);
-        }
-
-        private UniTask GenerateStageAsync(Actor actor)
-        {
-            return UniTask.CompletedTask;
         }
 
         private async UniTask ConnectMasterServerAsync()
