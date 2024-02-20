@@ -15,3 +15,4 @@ MonoBehaviour:
   moveSpeed: 11
   rotateSpeed: 0.3
   projectilePrefab: {fileID: 8665686412741492718, guid: 61c49ec161b7e0a458204646ab844fff, type: 3}
+  fireCoolTime: 0.1

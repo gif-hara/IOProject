@@ -13,5 +13,7 @@ namespace IOProject
         public float rotateSpeed = 5.0f;
 
         public Projectile projectilePrefab;
+
+        public float fireCoolTime;
     }
 }
