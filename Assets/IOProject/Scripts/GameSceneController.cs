@@ -35,8 +35,12 @@ namespace IOProject
             gameCameraController.SetLookAt(playerActor.LocatorController.GetLocator("View.FirstPerson.LookAt"));
             var playerActorController = new PlayerActorController();
             playerActorController.Attach(playerActor, playerSpec);
-            Instantiate(this.stageChunkPrefab);
             var reticleUI = Instantiate(this.reticleUIPrefab);
+        }
+
+        private UniTask GenerateStageAsync(Actor actor)
+        {
+            return UniTask.CompletedTask;
         }
 
         private async UniTask ConnectMasterServerAsync()
