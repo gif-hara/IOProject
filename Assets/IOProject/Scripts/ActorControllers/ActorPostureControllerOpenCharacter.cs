@@ -41,11 +41,12 @@ namespace IOProject.ActorControllers
                     {
                         characterController.Move(velocity);
                         var chunkSize = TinyServiceLocator.Resolve<GameDesignData>().StageChunkSize;
-                        var newPositionId = new Vector2Int(Mathf.FloorToInt(transform.position.x / chunkSize), Mathf.FloorToInt(transform.position.z / chunkSize));
+                        var newPositionId = positionIdReactiveProperty.Value + new Vector2Int(Mathf.FloorToInt(transform.position.x / chunkSize), Mathf.FloorToInt(transform.position.z / chunkSize));
                         if (positionIdReactiveProperty.Value != newPositionId)
                         {
                             var diff = newPositionId - positionIdReactiveProperty.Value;
                             characterController.transform.position -= new Vector3(diff.x * chunkSize, 0, diff.y * chunkSize);
+                            positionIdReactiveProperty.Value = newPositionId;
                         }
                         velocity = Vector3.zero;
                     }
