@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using Cysharp.Threading.Tasks.Triggers;
+using R3;
 using StandardAssets.Characters.Physics;
 using UnityEngine;
 
@@ -27,6 +28,10 @@ namespace IOProject.ActorControllers
 
         private float rotationY;
 
+        private ReactiveProperty<Vector2Int> positionIdReactiveProperty = new ReactiveProperty<Vector2Int>();
+
+        public ReadOnlyReactiveProperty<Vector2Int> PositionIdReactiveProperty => positionIdReactiveProperty;
+
         public void Setup(Actor actor)
         {
             actor.GetAsyncUpdateTrigger()
@@ -35,6 +40,13 @@ namespace IOProject.ActorControllers
                     if (velocity != Vector3.zero)
                     {
                         characterController.Move(velocity);
+                        const int chunkSize = 50;
+                        var newPositionId = new Vector2Int(Mathf.FloorToInt(transform.position.x / chunkSize), Mathf.FloorToInt(transform.position.z / chunkSize));
+                        if (positionIdReactiveProperty.Value != newPositionId)
+                        {
+                            var diff = newPositionId - positionIdReactiveProperty.Value;
+                            characterController.transform.position -= new Vector3(diff.x * chunkSize, 0, diff.y * chunkSize);
+                        }
                         velocity = Vector3.zero;
                     }
                 })

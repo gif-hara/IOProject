@@ -1,3 +1,4 @@
+using R3;
 using UnityEngine;
 
 namespace IOProject.ActorControllers
@@ -12,5 +13,7 @@ namespace IOProject.ActorControllers
         void AddMove(Vector3 velocity);
 
         void AddRotate(Vector3 eulerAngle);
+
+        ReadOnlyReactiveProperty<Vector2Int> PositionIdReactiveProperty { get; }
     }
 }
