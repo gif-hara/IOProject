@@ -22,24 +22,26 @@ namespace IOProject
 
         public void BeginGenerate(Actor actor)
         {
-            const int range = 10;
+            var gameDesignData = TinyServiceLocator.Resolve<GameDesignData>();
+            var range = gameDesignData.StageViewRange;
+            var stageChunkSize = gameDesignData.StageChunkSize;
             for (var x = -range; x <= range; x++)
             {
                 for (var y = -range; y <= range; y++)
                 {
-                    this.Generate(new Vector2Int(x, y));
+                    this.Generate(new Vector2Int(x, y), stageChunkSize);
                 }
             }
         }
 
-        private void Generate(Vector2Int positionId)
+        private void Generate(Vector2Int positionId, int stageChunkSize)
         {
             if (stageChunks.ContainsKey(positionId))
             {
                 return;
             }
             var stageChunk = Object.Instantiate(this.stageChunkPrefab);
-            stageChunk.transform.position = new Vector3(positionId.x * 50, 0, positionId.y * 50);
+            stageChunk.transform.position = new Vector3(positionId.x * stageChunkSize, 0, positionId.y * stageChunkSize);
             stageChunks.Add(positionId, stageChunk);
         }
     }
