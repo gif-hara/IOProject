@@ -35,6 +35,7 @@ namespace IOProject
             TinyServiceLocator.RegisterAsync<IInputController>(new InputController(), this.destroyCancellationToken).Forget();
             TinyServiceLocator.Resolve<IInputController>().SetCursorVisibliity(false);
             var playerActor = playerActorPrefab.Spawn();
+            TinyServiceLocator.RegisterAsync("LocalActor", playerActor, this.destroyCancellationToken).Forget();
             var gameCameraController = Instantiate(this.gameCameraControllerPrefab);
             gameCameraController.SetFollow(playerActor.LocatorController.GetLocator("View.FirstPerson.Follow"));
             gameCameraController.SetLookAt(playerActor.LocatorController.GetLocator("View.FirstPerson.LookAt"));
