@@ -10,6 +10,9 @@ namespace IOProject
     public class GameSceneController : SceneController
     {
         [SerializeField]
+        private GameDesignData gameDesignData;
+
+        [SerializeField]
         private PlayerSpec playerSpec;
 
         [SerializeField]
@@ -28,6 +31,7 @@ namespace IOProject
         {
             await HK.Framework.BootSystems.BootSystem.IsReady;
             await ConnectMasterServerAsync();
+            TinyServiceLocator.RegisterAsync(this.gameDesignData, this.destroyCancellationToken).Forget();
             TinyServiceLocator.RegisterAsync<IInputController>(new InputController(), this.destroyCancellationToken).Forget();
             TinyServiceLocator.Resolve<IInputController>().SetCursorVisibliity(false);
             var playerActor = playerActorPrefab.Spawn();
