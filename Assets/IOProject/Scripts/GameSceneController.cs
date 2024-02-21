@@ -21,7 +21,7 @@ namespace IOProject
         private GameCameraController gameCameraControllerPrefab;
 
         [SerializeField]
-        private GameObject stageChunkPrefab;
+        private StageChunk stageChunkPrefab;
 
         [SerializeField]
         private HKUIDocument reticleUIPrefab;

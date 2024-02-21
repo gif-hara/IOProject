@@ -305,7 +305,7 @@ MonoBehaviour:
   playerSpec: {fileID: 11400000, guid: 0db840ce75629cd4bb5df7db4e10ed6d, type: 2}
   playerActorPrefab: {fileID: 941140516101043193, guid: 7622b51e84da6e2459786232550dd815, type: 3}
   gameCameraControllerPrefab: {fileID: 9098317703298601956, guid: b748d0ff7b1037344adf7470aa13255c, type: 3}
-  stageChunkPrefab: {fileID: 6595662222947889464, guid: 327c7dccc4baf5e41abe5a22c21f1a0c, type: 3}
+  stageChunkPrefab: {fileID: 3401488311765259553, guid: 327c7dccc4baf5e41abe5a22c21f1a0c, type: 3}
   reticleUIPrefab: {fileID: -3284274891043851973, guid: 746b783d6bbdfbf4faee7d2675e9071b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

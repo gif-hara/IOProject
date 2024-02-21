@@ -11,11 +11,11 @@ namespace IOProject
     /// </summary>
     public sealed class StageController
     {
-        private GameObject stageChunkPrefab;
+        private StageChunk stageChunkPrefab;
 
-        private Dictionary<Vector2Int, GameObject> stageChunks = new();
+        private Dictionary<Vector2Int, StageChunk> stageChunks = new();
 
-        public StageController(GameObject stageChunkPrefab)
+        public StageController(StageChunk stageChunkPrefab)
         {
             this.stageChunkPrefab = stageChunkPrefab;
         }
