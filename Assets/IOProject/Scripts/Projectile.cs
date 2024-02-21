@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using IOProject.ActorControllers;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnitySequencerSystem;
 using R3;
 
@@ -17,7 +16,13 @@ namespace IOProject
         private List<ISequence> onSpawnSequence;
 
         [SerializeReference, SubclassSelector]
+        private List<ISequence> onHitSequence;
+
+        [SerializeReference, SubclassSelector]
         private List<ISequence> onHitActorSequence;
+
+        [SerializeReference, SubclassSelector]
+        private List<ISequence> onHitStageChunkSequence;
 
         private Actor owner;
 
@@ -50,6 +55,21 @@ namespace IOProject
         void OnTriggerEnter(Collider other)
         {
             var targetActor = other.GetComponentInParent<Actor>();
+            if (targetActor != null && owner == targetActor)
+            {
+                return;
+            }
+
+            var container = new Container();
+            container.Register("OwnerActor", owner);
+            var sequencer = new Sequencer(container, onHitSequence);
+            sequencer.PlayAsync(destroyCancellationToken).Forget();
+            TryHitProcessActor(targetActor);
+            TryHitProcessStageChunk(other);
+        }
+
+        private void TryHitProcessActor(Actor targetActor)
+        {
             if (targetActor == null)
             {
                 return;
@@ -62,6 +82,20 @@ namespace IOProject
             container.Register("OwnerActor", owner);
             container.Register("TargetActor", targetActor);
             var sequencer = new Sequencer(container, onHitActorSequence);
+            sequencer.PlayAsync(destroyCancellationToken).Forget();
+        }
+
+        private void TryHitProcessStageChunk(Collider other)
+        {
+            var stageChunk = other.GetComponentInParent<StageChunk>();
+            if (stageChunk == null)
+            {
+                return;
+            }
+            var container = new Container();
+            container.Register("OwnerActor", owner);
+            container.Register("StageChunk", stageChunk);
+            var sequencer = new Sequencer(container, onHitStageChunkSequence);
             sequencer.PlayAsync(destroyCancellationToken).Forget();
         }
     }
