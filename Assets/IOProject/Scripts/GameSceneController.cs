@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using IOProject.ActorControllers;
-using R3;
 using SoftGear.Strix.Net.Logging;
 using SoftGear.Strix.Unity.Runtime;
 using UnityEngine;
