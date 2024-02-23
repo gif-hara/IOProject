@@ -34,10 +34,10 @@ namespace IOProject
             }
         }
 
-        public void TakeDamageStageChunk(Vector2Int positionId, int damage)
+        public void TakeDamageStageChunk(long attackerNetworkInstanceId, Vector2Int positionId, int damage)
         {
             var model = GetOrCreateStageChunkModel(positionId);
-            model.AddDamageMap(0, damage);
+            model.AddDamageMap(attackerNetworkInstanceId, damage);
         }
 
         private void Generate(Vector2Int actorPositionId, Vector2Int stageChunkPositionId, int stageChunkSize)
@@ -58,7 +58,7 @@ namespace IOProject
             {
                 return stageChunkModel;
             }
-            stageChunkModel = new StageChunkModel();
+            stageChunkModel = new StageChunkModel(positionId);
             stageChunkModels.Add(positionId, stageChunkModel);
             return stageChunkModel;
         }
