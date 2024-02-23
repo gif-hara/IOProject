@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using IOProject.ActorControllers;
-using R3;
 using UnityEngine;
 
 namespace IOProject
@@ -15,6 +13,8 @@ namespace IOProject
 
         private Dictionary<Vector2Int, StageChunk> stageChunks = new();
 
+        private Dictionary<Vector2Int, StageChunkModel> stageChunkModels = new();
+
         public StageController(StageChunk stageChunkPrefab)
         {
             this.stageChunkPrefab = stageChunkPrefab;
@@ -24,25 +24,37 @@ namespace IOProject
         {
             var gameDesignData = TinyServiceLocator.Resolve<GameDesignData>();
             var range = gameDesignData.StageViewRange;
-            var stageChunkSize = gameDesignData.StageChunkSize;
+            var actorPositionId = actor.PostureController.PositionIdReactiveProperty.CurrentValue;
             for (var x = -range; x <= range; x++)
             {
                 for (var y = -range; y <= range; y++)
                 {
-                    this.Generate(new Vector2Int(x, y), stageChunkSize);
+                    Generate(actorPositionId, new Vector2Int(x, y), gameDesignData.StageChunkSize);
                 }
             }
         }
 
-        private void Generate(Vector2Int positionId, int stageChunkSize)
+        private void Generate(Vector2Int actorPositionId, Vector2Int stageChunkPositionId, int stageChunkSize)
         {
-            if (stageChunks.ContainsKey(positionId))
+            if (stageChunks.ContainsKey(stageChunkPositionId))
             {
                 return;
             }
             var stageChunk = Object.Instantiate(this.stageChunkPrefab);
-            stageChunk.transform.position = new Vector3(positionId.x * stageChunkSize, 0, positionId.y * stageChunkSize);
-            stageChunks.Add(positionId, stageChunk);
+            stageChunk.transform.position = new Vector3(stageChunkPositionId.x * stageChunkSize, 0, stageChunkPositionId.y * stageChunkSize);
+            stageChunk.Setup(GetOrCreateStageChunkModel(actorPositionId + stageChunkPositionId));
+            stageChunks.Add(stageChunkPositionId, stageChunk);
+        }
+
+        private StageChunkModel GetOrCreateStageChunkModel(Vector2Int positionId)
+        {
+            if (stageChunkModels.TryGetValue(positionId, out var stageChunkModel))
+            {
+                return stageChunkModel;
+            }
+            stageChunkModel = new StageChunkModel();
+            stageChunkModels.Add(positionId, stageChunkModel);
+            return stageChunkModel;
         }
     }
 }
