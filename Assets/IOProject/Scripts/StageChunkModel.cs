@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using R3;
-using SoftGear.Strix.Unity.Runtime;
+using UnityEngine;
 
 namespace IOProject
 {
@@ -29,6 +30,7 @@ namespace IOProject
                 damageMap.Add(networkInstanceId, damageReactiveProperty);
                 onAddDamageMapSubject.OnNext(networkInstanceId);
             }
+            UnityEngine.Debug.Log($"AddDamageMap: networkInstanceId = {networkInstanceId}, damage = {damage}");
         }
     }
 }
