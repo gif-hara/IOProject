@@ -500,6 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15301f50ea52f3e49a26d5115fe93981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupiedNetworkIdText: {fileID: 3003533958706708277}
 --- !u!54 &8033384765544254475
 Rigidbody:
   m_ObjectHideFlags: 0

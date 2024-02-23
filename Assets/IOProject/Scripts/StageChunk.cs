@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using R3;
+using TMPro;
 using UnityEngine;
 
 namespace IOProject
@@ -10,6 +11,9 @@ namespace IOProject
     /// </summary>
     public sealed class StageChunk : MonoBehaviour
     {
+        [SerializeField]
+        private TMP_Text occupiedNetworkIdText;
+
         public StageChunkModel Model { get; private set; }
 
         private CancellationTokenSource scope;
@@ -31,10 +35,18 @@ namespace IOProject
                         .RegisterTo(scope.Token);
                 })
                 .RegisterTo(scope.Token);
-            this.Model.OnOccupied
+            this.Model.OccupiedNetworkId
                 .Subscribe(networkInstanceId =>
                 {
-                    Debug.Log($"StageChunkModel.OnOccupied: PositionId = {Model.PositionId}, networkInstanceId = {networkInstanceId}", this);
+                    if (networkInstanceId == -1)
+                    {
+                        occupiedNetworkIdText.enabled = false;
+                    }
+                    else
+                    {
+                        occupiedNetworkIdText.enabled = true;
+                        occupiedNetworkIdText.text = networkInstanceId.ToString();
+                    }
                 })
                 .RegisterTo(scope.Token);
         }

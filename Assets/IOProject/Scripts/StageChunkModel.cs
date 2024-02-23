@@ -22,6 +22,8 @@ namespace IOProject
 
         private ReactiveProperty<long> occupiedNetworkId = new(-1);
 
+        public ReadOnlyReactiveProperty<long> OccupiedNetworkId => occupiedNetworkId;
+
         public StageChunkModel(Vector2Int positionId)
         {
             this.PositionId = positionId;
