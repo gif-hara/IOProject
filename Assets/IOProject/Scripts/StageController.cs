@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using IOProject.ActorControllers;
+using R3;
 using UnityEngine;
 
 namespace IOProject
@@ -20,7 +21,7 @@ namespace IOProject
             this.stageChunkPrefab = stageChunkPrefab;
         }
 
-        public void BeginGenerate(Actor actor)
+        public void Begin(Actor actor)
         {
             var gameDesignData = TinyServiceLocator.Resolve<GameDesignData>();
             var range = gameDesignData.StageViewRange;
@@ -32,6 +33,19 @@ namespace IOProject
                     Generate(actorPositionId, new Vector2Int(x, y), gameDesignData.StageChunkSize);
                 }
             }
+            actor.PostureController.PositionIdReactiveProperty
+                .Subscribe(positionId =>
+                {
+                    for (var x = -range; x <= range; x++)
+                    {
+                        for (var y = -range; y <= range; y++)
+                        {
+                            var stagePositionId = new Vector2Int(x, y);
+                            var fixedPositionId = positionId + stagePositionId;
+                            stageChunks[stagePositionId].Setup(GetOrCreateStageChunkModel(fixedPositionId));
+                        }
+                    }
+                });
         }
 
         public void TakeDamageStageChunk(long attackerNetworkInstanceId, Vector2Int positionId, int damage)

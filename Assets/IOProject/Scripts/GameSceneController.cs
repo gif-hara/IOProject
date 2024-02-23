@@ -42,7 +42,7 @@ namespace IOProject
             TinyServiceLocator.RegisterAsync(stageController, this.destroyCancellationToken).Forget();
             var playerActorController = new PlayerActorController();
             playerActorController.Attach(playerActor, playerSpec);
-            stageController.BeginGenerate(playerActor);
+            stageController.Begin(playerActor);
             var reticleUI = Instantiate(this.reticleUIPrefab);
         }
 
