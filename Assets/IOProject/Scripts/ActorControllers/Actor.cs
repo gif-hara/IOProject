@@ -37,10 +37,26 @@ namespace IOProject.ActorControllers
             targetActor.RpcToAll("TakeDamage", this.strixReplicator.networkInstanceId, damage);
         }
 
+        public void GiveDamage(StageChunk stageChunk, int damage)
+        {
+            if (!isLocal)
+            {
+                return;
+            }
+            RpcToAll("RpcGiveDamageStageChunk", this.strixReplicator.networkInstanceId, damage);
+        }
+
         [StrixRpc]
         public void TakeDamage(long attackerNetworkInstanceId, int damage)
         {
             Debug.Log($"TakeDamage: attackerNetworkInstanceId = {attackerNetworkInstanceId}, myNetworkInstanceId = {this.strixReplicator.networkInstanceId}, damage = {damage}", this);
+        }
+
+        [StrixRpc]
+        public void RpcGiveDamageStageChunk(int positionX, int positionY, int damage)
+        {
+            var stageController = TinyServiceLocator.Resolve<StageController>();
+            var positionId = new Vector2Int(positionX, positionY);
         }
     }
 }
