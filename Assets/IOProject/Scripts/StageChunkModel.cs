@@ -20,9 +20,7 @@ namespace IOProject
 
         public Observable<long> OnAddDamageMap => onAddDamageMapSubject;
 
-        private Subject<long> onOccupied = new();
-
-        public Observable<long> OnOccupied => onOccupied;
+        private ReactiveProperty<long> occupiedNetworkId = new(-1);
 
         public StageChunkModel(Vector2Int positionId)
         {
@@ -47,7 +45,7 @@ namespace IOProject
             if (damageMap[networkInstanceId].Value >= gameDesignData.StageChunkDamageThreshold)
             {
                 damageMap.Clear();
-                onOccupied.OnNext(networkInstanceId);
+                occupiedNetworkId.Value = networkInstanceId;
             }
         }
     }
