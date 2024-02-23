@@ -10,12 +10,14 @@ namespace IOProject
     {
         [SerializeField]
         private int stageChunkSize;
-
         public int StageChunkSize => stageChunkSize;
 
         [SerializeField]
         private int stageViewRange;
-
         public int StageViewRange => stageViewRange;
+
+        [SerializeField]
+        private int stageChunkDamageThreshold;
+        public int StageChunkDamageThreshold => stageChunkDamageThreshold;
     }
 }
