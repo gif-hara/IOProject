@@ -34,6 +34,12 @@ namespace IOProject
             }
         }
 
+        public void TakeDamageStageChunk(Vector2Int positionId, int damage)
+        {
+            var model = GetOrCreateStageChunkModel(positionId);
+            model.AddDamageMap(0, damage);
+        }
+
         private void Generate(Vector2Int actorPositionId, Vector2Int stageChunkPositionId, int stageChunkSize)
         {
             if (stageChunks.ContainsKey(stageChunkPositionId))
