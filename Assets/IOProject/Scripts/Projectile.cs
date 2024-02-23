@@ -94,7 +94,7 @@ namespace IOProject
             }
             var container = new Container();
             container.Register("OwnerActor", owner);
-            container.Register("StageChunk", stageChunk);
+            container.Register("TargetStageChunk", stageChunk);
             var sequencer = new Sequencer(container, onHitStageChunkSequence);
             sequencer.PlayAsync(destroyCancellationToken).Forget();
         }
