@@ -43,7 +43,8 @@ namespace IOProject.ActorControllers
             {
                 return;
             }
-            RpcToAll("RpcGiveDamageStageChunk", this.strixReplicator.networkInstanceId, damage);
+            var positionId = stageChunk.Model.PositionId;
+            RpcToAll("RpcGiveDamageStageChunk", positionId.x, positionId.y, damage);
         }
 
         [StrixRpc]
@@ -55,7 +56,7 @@ namespace IOProject.ActorControllers
         [StrixRpc]
         public void RpcGiveDamageStageChunk(int positionX, int positionY, int damage)
         {
-            TinyServiceLocator.Resolve<StageController>().TakeDamageStageChunk(new Vector2Int(positionX, positionY), damage);
+            TinyServiceLocator.Resolve<StageController>().TakeDamageStageChunk(this.strixReplicator.networkInstanceId, new Vector2Int(positionX, positionY), damage);
         }
     }
 }
