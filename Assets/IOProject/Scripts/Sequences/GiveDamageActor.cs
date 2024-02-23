@@ -10,9 +10,9 @@ namespace IOProject.Sequences
     /// <summary>
     /// <see cref="Actor"/>にダメージを与えるシーケンス
     /// </summary>
-    [AddTypeMenu("IOProject/GiveDamage")]
+    [AddTypeMenu("IOProject/GiveDamageActor")]
     [Serializable]
-    public sealed class GiveDamage : ISequence
+    public sealed class GiveDamageActor : ISequence
     {
         [SerializeField]
         private string ownerActorName;
