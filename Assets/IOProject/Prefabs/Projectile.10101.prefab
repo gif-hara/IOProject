@@ -214,6 +214,14 @@ PrefabInstance:
       value: 7038082204134015153
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: onHitStageChunkSequence.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: 'onHitStageChunkSequence.Array.data[0]'
+      value: 7038082204134015155
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: 'managedReferences[7038082124307497142]'
       value: UnitySequencerSystem UnitySequencerSystem.LitMotion.BindToLocalPositionZ
       objectReference: {fileID: 0}
@@ -262,6 +270,10 @@ PrefabInstance:
       value: Assembly-CSharp IOProject.Sequences.GiveDamageActor
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: 'managedReferences[7038082204134015155]'
+      value: Assembly-CSharp IOProject.Sequences.GiveDamageStageChunk
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082124307497144].value
       value: 0
       objectReference: {fileID: 0}
@@ -294,6 +306,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: managedReferences[7038082204134015155].damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082124307497142].targetResolver
       value: 7038082124307497143
       objectReference: {fileID: 0}
@@ -314,6 +330,10 @@ PrefabInstance:
       value: OwnerActor
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: managedReferences[7038082204134015155].ownerActorName
+      value: OwnerActor
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082124307497142].parameters.ease
       value: 0
       objectReference: {fileID: 0}
@@ -328,6 +348,10 @@ PrefabInstance:
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082124307497142].parameters.loopType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: managedReferences[7038082204134015155].targetStageChunkName
+      value: TargetStageChunk
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082124307497142].parameters.toResolver
