@@ -20,6 +20,10 @@ namespace IOProject
 
         public Observable<long> OnAddDamageMap => onAddDamageMapSubject;
 
+        private Subject<long> onOccupied = new();
+
+        public Observable<long> OnOccupied => onOccupied;
+
         public StageChunkModel(Vector2Int positionId)
         {
             this.PositionId = positionId;
@@ -35,9 +39,16 @@ namespace IOProject
             {
                 damageReactiveProperty = new ReactiveProperty<int>(damage);
                 damageMap.Add(networkInstanceId, damageReactiveProperty);
+                onAddDamageMapSubject.OnNext(networkInstanceId);
             }
-            onAddDamageMapSubject.OnNext(networkInstanceId);
-            UnityEngine.Debug.Log($"AddDamageMap: networkInstanceId = {networkInstanceId}, damage = {damage}");
+
+            var gameDesignData = TinyServiceLocator.Resolve<GameDesignData>();
+
+            if (damageMap[networkInstanceId].Value >= gameDesignData.StageChunkDamageThreshold)
+            {
+                damageMap.Clear();
+                onOccupied.OnNext(networkInstanceId);
+            }
         }
     }
 }
