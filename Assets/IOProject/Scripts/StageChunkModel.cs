@@ -35,8 +35,8 @@ namespace IOProject
             {
                 damageReactiveProperty = new ReactiveProperty<int>(damage);
                 damageMap.Add(networkInstanceId, damageReactiveProperty);
-                onAddDamageMapSubject.OnNext(networkInstanceId);
             }
+            onAddDamageMapSubject.OnNext(networkInstanceId);
             UnityEngine.Debug.Log($"AddDamageMap: networkInstanceId = {networkInstanceId}, damage = {damage}");
         }
     }
