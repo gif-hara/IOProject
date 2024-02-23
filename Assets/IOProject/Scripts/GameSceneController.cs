@@ -43,7 +43,6 @@ namespace IOProject
             var playerActorController = new PlayerActorController();
             playerActorController.Attach(playerActor, playerSpec);
             stageController.BeginGenerate(playerActor);
-            Instantiate(this.stageChunkPrefab);
             var reticleUI = Instantiate(this.reticleUIPrefab);
         }
 
