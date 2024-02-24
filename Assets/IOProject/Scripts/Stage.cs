@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using IOProject.ActorControllers;
 using R3;
+using SoftGear.Strix.Client.Core;
+using SoftGear.Strix.Net;
 using SoftGear.Strix.Unity.Runtime;
 using UnityEngine;
 
@@ -14,13 +16,57 @@ namespace IOProject
         [SerializeField]
         private StageChunk stageChunkPrefab;
 
+        private StrixMessageStageChunkModelDictionary strixMessageStageChunkModels = new();
+
         private Dictionary<Vector2Int, StageChunk> stageChunks = new();
 
         private Dictionary<Vector2Int, StageChunkModel> stageChunkModels = new();
 
+        private bool isFirstDeserialize = true;
+
+        public bool IsReady
+        {
+            get
+            {
+                if (isLocal)
+                {
+                    return true;
+                }
+
+                return !isFirstDeserialize;
+            }
+        }
+
         void Awake()
         {
             TinyServiceLocator.RegisterAsync(this, destroyCancellationToken).Forget();
+        }
+
+        void Start()
+        {
+            if (!StrixNetwork.instance.isRoomOwner)
+            {
+                RpcToRoomOwner(nameof(RequestInitialize), StrixNetwork.instance.selfRoomMember.GetUid());
+                Debug.Log("Start");
+            }
+        }
+
+        [StrixRpc]
+        private void RequestInitialize(UID uid)
+        {
+            Rpc(uid, nameof(Initialize), this.strixMessageStageChunkModels);
+            Debug.Log("RequestInitialize");
+        }
+
+        [StrixRpc]
+        private void Initialize(StrixMessageStageChunkModelDictionary strixMessageStageChunkModels)
+        {
+            this.strixMessageStageChunkModels = strixMessageStageChunkModels;
+            foreach (var (positionId, stageChunkModel) in strixMessageStageChunkModels)
+            {
+                stageChunkModels.Add(positionId, new StageChunkModel(stageChunkModel));
+            }
+            isFirstDeserialize = false;
         }
 
         public void Begin(Actor actor)
@@ -67,8 +113,10 @@ namespace IOProject
             {
                 return stageChunkModel;
             }
-            stageChunkModel = new StageChunkModel(positionId);
+            var message = new StrixMessageStageChunkModel();
+            stageChunkModel = new StageChunkModel(positionId, message);
             stageChunkModels.Add(positionId, stageChunkModel);
+            strixMessageStageChunkModels.Add(positionId, message);
             return stageChunkModel;
         }
     }

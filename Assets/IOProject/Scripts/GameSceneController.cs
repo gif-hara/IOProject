@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using IOProject.ActorControllers;
 using SoftGear.Strix.Net.Logging;
+using SoftGear.Strix.Net.Serialization;
 using SoftGear.Strix.Unity.Runtime;
 using UnityEngine;
 
@@ -32,6 +33,9 @@ namespace IOProject
         async void Start()
         {
             await HK.Framework.BootSystems.BootSystem.IsReady;
+            ObjectFactory.Instance.Register(typeof(StrixMessageStageChunkModel));
+            ObjectFactory.Instance.Register(typeof(StrixMessageStageChunkModelDictionary));
+            ObjectFactory.Instance.Register(typeof(DamageDictionary));
             await ConnectMasterServerAsync();
             TinyServiceLocator.RegisterAsync(this.gameDesignData, this.destroyCancellationToken).Forget();
             TinyServiceLocator.RegisterAsync<IInputController>(new InputController(), this.destroyCancellationToken).Forget();
@@ -39,10 +43,12 @@ namespace IOProject
 
             if (StrixNetwork.instance.isRoomOwner)
             {
-                Instantiate(this.stagePrefab);
+                var _stage = Instantiate(this.stagePrefab);
             }
 
-            await UniTask.WaitUntil(() => TinyServiceLocator.Resolve<Stage>() != null);
+            await UniTask.WaitUntil(() => TinyServiceLocator.Contains<Stage>());
+            var stage = TinyServiceLocator.Resolve<Stage>();
+            await UniTask.WaitUntil(() => stage.IsReady);
             var playerActor = playerActorPrefab.Spawn();
             TinyServiceLocator.RegisterAsync("LocalActor", playerActor, this.destroyCancellationToken).Forget();
             var gameCameraController = Instantiate(this.gameCameraControllerPrefab);
@@ -50,7 +56,6 @@ namespace IOProject
             gameCameraController.SetLookAt(playerActor.LocatorController.GetLocator("View.FirstPerson.LookAt"));
             var playerActorController = new PlayerActorController();
             playerActorController.Attach(playerActor, playerSpec);
-            var stage = TinyServiceLocator.Resolve<Stage>();
             stage.Begin(playerActor);
             var reticleUI = Instantiate(this.reticleUIPrefab);
         }
