@@ -16,7 +16,7 @@ namespace IOProject
         [SerializeField]
         private StageChunk stageChunkPrefab;
 
-        private StrixMessageStageChunkModelDictionary strixMessageStageChunkModels = new();
+        private List<StrixMessageStageChunkModel> strixMessageStageChunkModels = new();
 
         private Dictionary<Vector2Int, StageChunk> stageChunks = new();
 
@@ -59,14 +59,22 @@ namespace IOProject
         }
 
         [StrixRpc]
-        private void Initialize(StrixMessageStageChunkModelDictionary strixMessageStageChunkModels)
+        private void Initialize(List<StrixMessageStageChunkModel> strixMessageStageChunkModels)
         {
             this.strixMessageStageChunkModels = strixMessageStageChunkModels;
-            foreach (var (positionId, stageChunkModel) in strixMessageStageChunkModels)
+            foreach (var strixMessageStageChunkModel in strixMessageStageChunkModels)
             {
-                stageChunkModels.Add(positionId, new StageChunkModel(stageChunkModel));
+                var positionId = strixMessageStageChunkModel.positionId;
+                stageChunkModels.Add(positionId, new StageChunkModel(strixMessageStageChunkModel));
             }
             isFirstDeserialize = false;
+        }
+
+        [StrixRpc]
+        private void SyncModel(StrixMessageStageChunkModel strixMessageStageChunkModel)
+        {
+            var positionId = strixMessageStageChunkModel.positionId;
+            stageChunkModels[positionId].Sync(strixMessageStageChunkModel);
         }
 
         public void Begin(Actor actor)
@@ -105,6 +113,7 @@ namespace IOProject
         {
             var model = GetOrCreateStageChunkModel(positionId);
             model.AddDamageMap(attackerNetworkInstanceId, damage);
+            RpcToOtherMembers(nameof(SyncModel), model.StrixMessage);
         }
 
         private StageChunkModel GetOrCreateStageChunkModel(Vector2Int positionId)
@@ -116,7 +125,7 @@ namespace IOProject
             var message = new StrixMessageStageChunkModel();
             stageChunkModel = new StageChunkModel(positionId, message);
             stageChunkModels.Add(positionId, stageChunkModel);
-            strixMessageStageChunkModels.Add(positionId, message);
+            strixMessageStageChunkModels.Add(message);
             return stageChunkModel;
         }
     }

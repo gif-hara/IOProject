@@ -27,6 +27,8 @@ namespace IOProject
 
         private StrixMessageStageChunkModel strixMessage;
 
+        public StrixMessageStageChunkModel StrixMessage => strixMessage;
+
         /// <summary>
         /// 占有されているか
         /// </summary>
@@ -52,8 +54,9 @@ namespace IOProject
 
         public void AddDamageMap(long networkInstanceId, int damage)
         {
-            GetOrCreateDamageReactiveProperty(networkInstanceId).Value += damage;
-            strixMessage.SyncDamageMap(networkInstanceId, damage);
+            var damageReactiveProperty = GetOrCreateDamageReactiveProperty(networkInstanceId);
+            damageReactiveProperty.Value += damage;
+            strixMessage.SyncDamageMap(networkInstanceId, damageReactiveProperty.Value);
             TryOccupy(networkInstanceId);
         }
 
@@ -82,21 +85,25 @@ namespace IOProject
             var damageThreshold = IsOccupied ? gameDesignData.StageChunkOccupiedDamageThreshold : gameDesignData.StageChunkDefaultDamageThreshold;
             if (damageMap[networkInstanceId].Value >= damageThreshold)
             {
-                foreach (var (_, value) in damageMap)
+                foreach (var (key, value) in damageMap)
                 {
                     value.Value = 0;
+                    strixMessage.SyncDamageMap(key, 0);
                 }
                 occupiedNetworkId.Value = networkInstanceId;
                 strixMessage.SyncOccupiedNetworkId(networkInstanceId);
             }
         }
 
-        public void Sync(StageChunkModel model)
+        public void Sync(StrixMessageStageChunkModel message)
         {
-            foreach (var (networkInstanceId, damage) in model.DamageMap)
+            foreach (var (networkInstanceId, damage) in message.damageMap)
             {
-                SetDamageMap(networkInstanceId, damage.Value);
+                GetOrCreateDamageReactiveProperty(networkInstanceId).Value = damage;
+                this.strixMessage.SyncDamageMap(networkInstanceId, damage);
             }
+            occupiedNetworkId.Value = message.occupiedNetworkId;
+            this.strixMessage.SyncOccupiedNetworkId(message.occupiedNetworkId);
         }
     }
 }

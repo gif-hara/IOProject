@@ -33,7 +33,7 @@ namespace IOProject.ActorControllers
             {
                 return;
             }
-            targetActor.RpcToAll("TakeDamage", this.strixReplicator.networkInstanceId, damage);
+            targetActor.RpcToAll(nameof(TakeDamage), this.strixReplicator.networkInstanceId, damage);
         }
 
         public void GiveDamage(StageChunk stageChunk, int damage)
@@ -43,7 +43,7 @@ namespace IOProject.ActorControllers
                 return;
             }
             var positionId = stageChunk.Model.PositionId;
-            RpcToAll("RpcGiveDamageStageChunk", positionId.x, positionId.y, damage);
+            RpcToRoomOwner(nameof(RpcGiveDamageStageChunk), positionId.x, positionId.y, damage);
         }
 
         [StrixRpc]

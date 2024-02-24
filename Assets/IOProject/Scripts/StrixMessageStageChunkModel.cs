@@ -1,4 +1,5 @@
 using System;
+using System.Collections.ObjectModel;
 using SerializableCollections;
 using UnityEngine;
 
@@ -45,7 +46,6 @@ namespace IOProject
 
         public void SyncOccupiedNetworkId(long networkInstanceId)
         {
-            damageMap.Clear();
             occupiedNetworkId = networkInstanceId;
         }
     }
