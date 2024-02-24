@@ -68,6 +68,16 @@ namespace IOProject
             return (T)namedServices[typeof(T)][name].service;
         }
 
+        public static bool Contains<T>()
+        {
+            return services.ContainsKey(typeof(T));
+        }
+
+        public static bool Contains<T>(string name)
+        {
+            return namedServices.ContainsKey(typeof(T)) && namedServices[typeof(T)].ContainsKey(name);
+        }
+
         public static void Remove<T>()
         {
             Assert.IsTrue(services.ContainsKey(typeof(T)), $"Service not found: {typeof(T)}");

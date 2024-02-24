@@ -15,6 +15,9 @@ namespace IOProject
         private PlayerSpec playerSpec;
 
         [SerializeField]
+        private Stage stagePrefab;
+
+        [SerializeField]
         private Actor playerActorPrefab;
 
         [SerializeField]
@@ -33,16 +36,22 @@ namespace IOProject
             TinyServiceLocator.RegisterAsync(this.gameDesignData, this.destroyCancellationToken).Forget();
             TinyServiceLocator.RegisterAsync<IInputController>(new InputController(), this.destroyCancellationToken).Forget();
             TinyServiceLocator.Resolve<IInputController>().SetCursorVisibliity(false);
+
+            if (StrixNetwork.instance.isRoomOwner)
+            {
+                Instantiate(this.stagePrefab);
+            }
+
+            await UniTask.WaitUntil(() => TinyServiceLocator.Resolve<Stage>() != null);
             var playerActor = playerActorPrefab.Spawn();
             TinyServiceLocator.RegisterAsync("LocalActor", playerActor, this.destroyCancellationToken).Forget();
             var gameCameraController = Instantiate(this.gameCameraControllerPrefab);
             gameCameraController.SetFollow(playerActor.LocatorController.GetLocator("View.FirstPerson.Follow"));
             gameCameraController.SetLookAt(playerActor.LocatorController.GetLocator("View.FirstPerson.LookAt"));
-            var stageController = new Stage(stageChunkPrefab);
-            TinyServiceLocator.RegisterAsync(stageController, this.destroyCancellationToken).Forget();
             var playerActorController = new PlayerActorController();
             playerActorController.Attach(playerActor, playerSpec);
-            stageController.Begin(playerActor);
+            var stage = TinyServiceLocator.Resolve<Stage>();
+            stage.Begin(playerActor);
             var reticleUI = Instantiate(this.reticleUIPrefab);
         }
 

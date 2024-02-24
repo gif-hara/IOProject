@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using IOProject.ActorControllers;
 using R3;
+using SoftGear.Strix.Unity.Runtime;
 using UnityEngine;
 
 namespace IOProject
@@ -8,17 +9,18 @@ namespace IOProject
     /// <summary>
     /// 
     /// </summary>
-    public sealed class Stage
+    public sealed class Stage : StrixBehaviour
     {
+        [SerializeField]
         private StageChunk stageChunkPrefab;
 
         private Dictionary<Vector2Int, StageChunk> stageChunks = new();
 
         private Dictionary<Vector2Int, StageChunkModel> stageChunkModels = new();
 
-        public Stage(StageChunk stageChunkPrefab)
+        void Awake()
         {
-            this.stageChunkPrefab = stageChunkPrefab;
+            TinyServiceLocator.RegisterAsync(this, destroyCancellationToken).Forget();
         }
 
         public void Begin(Actor actor)
