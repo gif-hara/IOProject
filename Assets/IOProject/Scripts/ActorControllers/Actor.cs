@@ -13,19 +13,18 @@ namespace IOProject.ActorControllers
 
         public IActorPostureController PostureController { get; private set; }
 
-        public Actor Spawn()
-        {
-            var actor = Instantiate(this);
-            actor.Initialize();
-            ActorEvents.OnSpawned.Publish(actor);
-            return actor;
-        }
-
-        private void Initialize()
+        void Awake()
         {
             this.LocatorController = new ActorLocatorController(locators);
             this.PostureController = GetComponent<IActorPostureController>();
             this.PostureController.Setup(this);
+        }
+
+        public Actor Spawn()
+        {
+            var actor = Instantiate(this);
+            ActorEvents.OnSpawned.Publish(actor);
+            return actor;
         }
 
         public void GiveDamage(Actor targetActor, int damage)
