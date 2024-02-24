@@ -28,11 +28,16 @@ namespace IOProject
             var gameDesignData = TinyServiceLocator.Resolve<GameDesignData>();
             var range = gameDesignData.StageViewRange;
             var actorPositionId = actor.PostureController.PositionIdReactiveProperty.CurrentValue;
+            var stageChunkSize = gameDesignData.StageChunkSize;
             for (var x = -range; x <= range; x++)
             {
                 for (var y = -range; y <= range; y++)
                 {
-                    Generate(actorPositionId, new Vector2Int(x, y), gameDesignData.StageChunkSize);
+                    var stageChunkPositionId = new Vector2Int(x, y);
+                    var stageChunk = Instantiate(this.stageChunkPrefab);
+                    stageChunk.transform.position = new Vector3(stageChunkPositionId.x * stageChunkSize, 0, stageChunkPositionId.y * stageChunkSize);
+                    stageChunk.Setup(GetOrCreateStageChunkModel(actorPositionId + stageChunkPositionId));
+                    stageChunks.Add(stageChunkPositionId, stageChunk);
                 }
             }
             actor.PostureController.PositionIdReactiveProperty
@@ -54,18 +59,6 @@ namespace IOProject
         {
             var model = GetOrCreateStageChunkModel(positionId);
             model.AddDamageMap(attackerNetworkInstanceId, damage);
-        }
-
-        private void Generate(Vector2Int actorPositionId, Vector2Int stageChunkPositionId, int stageChunkSize)
-        {
-            if (stageChunks.ContainsKey(stageChunkPositionId))
-            {
-                return;
-            }
-            var stageChunk = Object.Instantiate(this.stageChunkPrefab);
-            stageChunk.transform.position = new Vector3(stageChunkPositionId.x * stageChunkSize, 0, stageChunkPositionId.y * stageChunkSize);
-            stageChunk.Setup(GetOrCreateStageChunkModel(actorPositionId + stageChunkPositionId));
-            stageChunks.Add(stageChunkPositionId, stageChunk);
         }
 
         private StageChunkModel GetOrCreateStageChunkModel(Vector2Int positionId)
