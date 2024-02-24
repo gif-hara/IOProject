@@ -8,7 +8,7 @@ namespace IOProject
     /// <summary>
     /// 
     /// </summary>
-    public sealed class StageController
+    public sealed class Stage
     {
         private StageChunk stageChunkPrefab;
 
@@ -16,7 +16,7 @@ namespace IOProject
 
         private Dictionary<Vector2Int, StageChunkModel> stageChunkModels = new();
 
-        public StageController(StageChunk stageChunkPrefab)
+        public Stage(StageChunk stageChunkPrefab)
         {
             this.stageChunkPrefab = stageChunkPrefab;
         }

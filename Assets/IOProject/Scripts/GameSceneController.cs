@@ -38,7 +38,7 @@ namespace IOProject
             var gameCameraController = Instantiate(this.gameCameraControllerPrefab);
             gameCameraController.SetFollow(playerActor.LocatorController.GetLocator("View.FirstPerson.Follow"));
             gameCameraController.SetLookAt(playerActor.LocatorController.GetLocator("View.FirstPerson.LookAt"));
-            var stageController = new StageController(stageChunkPrefab);
+            var stageController = new Stage(stageChunkPrefab);
             TinyServiceLocator.RegisterAsync(stageController, this.destroyCancellationToken).Forget();
             var playerActorController = new PlayerActorController();
             playerActorController.Attach(playerActor, playerSpec);
