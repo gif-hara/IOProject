@@ -17,7 +17,18 @@ namespace IOProject
         public int StageViewRange => stageViewRange;
 
         [SerializeField]
-        private int stageChunkDamageThreshold;
-        public int StageChunkDamageThreshold => stageChunkDamageThreshold;
+        private int stageChunkDefaultDamageThreshold;
+
+        /// <summary>
+        /// デフォルトのステージチャンク占有ダメージ閾値
+        /// </summary>
+        public int StageChunkDefaultDamageThreshold => stageChunkDefaultDamageThreshold;
+
+        [SerializeField]
+        private int stageChunkOccupiedDamageThreshold;
+        /// <summary>
+        /// 占有されたステージチャンクのダメージ閾値
+        /// </summary>
+        public int StageChunkOccupiedDamageThreshold => stageChunkOccupiedDamageThreshold;
     }
 }

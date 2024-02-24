@@ -24,6 +24,11 @@ namespace IOProject
 
         public ReadOnlyReactiveProperty<long> OccupiedNetworkId => occupiedNetworkId;
 
+        /// <summary>
+        /// 占有されているか
+        /// </summary>
+        public bool IsOccupied => occupiedNetworkId.Value != -1;
+
         public StageChunkModel(Vector2Int positionId)
         {
             this.PositionId = positionId;
@@ -43,8 +48,8 @@ namespace IOProject
             }
 
             var gameDesignData = TinyServiceLocator.Resolve<GameDesignData>();
-
-            if (damageMap[networkInstanceId].Value >= gameDesignData.StageChunkDamageThreshold)
+            var damageThreshold = IsOccupied ? gameDesignData.StageChunkOccupiedDamageThreshold : gameDesignData.StageChunkDefaultDamageThreshold;
+            if (damageMap[networkInstanceId].Value >= damageThreshold)
             {
                 damageMap.Clear();
                 occupiedNetworkId.Value = networkInstanceId;

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageChunkSize: 30
   stageViewRange: 10
-  stageChunkDamageThreshold: 100
+  stageChunkDefaultDamageThreshold: 100
+  stageChunkOccupiedDamageThreshold: 200
