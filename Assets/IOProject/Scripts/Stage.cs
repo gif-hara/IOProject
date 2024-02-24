@@ -47,7 +47,6 @@ namespace IOProject
             if (!StrixNetwork.instance.isRoomOwner)
             {
                 RpcToRoomOwner(nameof(RequestInitialize), StrixNetwork.instance.selfRoomMember.GetUid());
-                Debug.Log("Start");
             }
         }
 
@@ -55,7 +54,6 @@ namespace IOProject
         private void RequestInitialize(UID uid)
         {
             Rpc(uid, nameof(Initialize), this.strixMessageStageChunkModels);
-            Debug.Log("RequestInitialize");
         }
 
         [StrixRpc]
