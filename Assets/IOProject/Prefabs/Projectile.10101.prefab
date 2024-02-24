@@ -198,6 +198,10 @@ PrefabInstance:
       value: 7038082171191689303
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: 'onHitSequence.Array.data[1]'
+      value: 7038082204134015184
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: onHitActorSequence.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -208,6 +212,10 @@ PrefabInstance:
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: 'onSpawnSequence.Array.data[1]'
       value: 7038082124307497148
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: 'onSpawnSequence.Array.data[2]'
+      value: 7038082204134015183
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: 'onHitActorSequence.Array.data[0]'
@@ -254,10 +262,6 @@ PrefabInstance:
       value: UnitySequencerSystem UnitySequencerSystem.Resolvers.GameObjectResolver/ReferenceGameObject
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: 'managedReferences[7038082124307497163]'
-      value: Assembly-CSharp IOProject.Sequences.GiveDamage
-      objectReference: {fileID: 0}
-    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: 'managedReferences[7038082171191689303]'
       value: UnitySequencerSystem UnitySequencerSystem.StandardSequences.GameObjectDestroy
       objectReference: {fileID: 0}
@@ -272,6 +276,14 @@ PrefabInstance:
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: 'managedReferences[7038082204134015155]'
       value: Assembly-CSharp IOProject.Sequences.GiveDamageStageChunk
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: 'managedReferences[7038082204134015183]'
+      value: UnitySequencerSystem UnitySequencerSystem.StandardSequences.Log
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: 'managedReferences[7038082204134015184]'
+      value: UnitySequencerSystem UnitySequencerSystem.StandardSequences.Log
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082124307497144].value
@@ -294,10 +306,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2588307252335620167}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307497163].damage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082171191689304].target
       value: 
       objectReference: {fileID: 2588307252335620167}
@@ -310,16 +318,20 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: managedReferences[7038082204134015183].message
+      value: OK
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
+      propertyPath: managedReferences[7038082204134015184].message
+      value: OKOK
+      objectReference: {fileID: 0}
+    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082124307497142].targetResolver
       value: 7038082124307497143
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082124307497148].targetResolver
       value: 7038082124307497149
-      objectReference: {fileID: 0}
-    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307497163].ownerActorName
-      value: OwnerActor
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082171191689303].targetResolver
@@ -336,10 +348,6 @@ PrefabInstance:
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082124307497142].parameters.ease
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
-      propertyPath: managedReferences[7038082124307497163].targetActorName
-      value: TargetActor
       objectReference: {fileID: 0}
     - target: {fileID: -3949895163927126872, guid: 854ad7bd81290f64483236c354aeffc1, type: 3}
       propertyPath: managedReferences[7038082204134015153].targetActorName
