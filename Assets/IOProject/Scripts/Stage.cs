@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using IOProject.ActorControllers;
 using R3;
 using SoftGear.Strix.Client.Core;
-using SoftGear.Strix.Net;
 using SoftGear.Strix.Unity.Runtime;
 using UnityEngine;
 
