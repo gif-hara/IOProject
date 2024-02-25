@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9115523774149022476}
   - component: {fileID: -2475170256125632000}
   - component: {fileID: -1804719526980325351}
-  - component: {fileID: -1066504408713172967}
   m_Layer: 6
   m_Name: Actor.Base
   m_TagString: Untagged
@@ -62,32 +61,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strixBehaviours:
   - {fileID: -2475170256125632000}
-  - {fileID: -1066504408713172967}
   objectType: 2
   sendRate: 5
   syncDestroy: 1
   networkInstanceId: -1
   InstantiableBy: 1
   ConnectionClosedBehaviour: 1
---- !u!114 &-1066504408713172967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6468868194897397533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1762331577, guid: f2c2112f638c5b8489d16403d930373b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NearDistance: 0.02
-  MaxSpeed: 100
-  Acceleration: 500
-  Damping: 0
-  SyncPeriodMin: 50
-  SyncPeriodMax: 200
-  PredictionPeriod: 300
 --- !u!1 &7962706601735477365
 GameObject:
   m_ObjectHideFlags: 0
