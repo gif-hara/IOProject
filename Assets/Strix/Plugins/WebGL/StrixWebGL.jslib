@@ -34,10 +34,10 @@ var LibraryStrixWebSocket = {
 
         webSocket.onclose = function(closeEvent) {
             if (connected) {
-                Module._strixOnClose(id, closeEvent.code, allocateUTF8OnStack(closeEvent.reason), closeEvent.wasClean);
+                Module._strixOnClose(id, closeEvent.code, stringToUTF8OnStack(closeEvent.reason), closeEvent.wasClean);
                 Strix.webSockets[id] = null;
             } else {
-                Module._strixOnOpen(id, closeEvent.code, allocateUTF8OnStack(closeEvent.reason), closeEvent.wasClean);
+                Module._strixOnOpen(id, closeEvent.code, stringToUTF8OnStack(closeEvent.reason), closeEvent.wasClean);
             }
         }
 
