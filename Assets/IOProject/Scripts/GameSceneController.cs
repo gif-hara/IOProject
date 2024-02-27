@@ -35,6 +35,7 @@ namespace IOProject
             await HK.Framework.BootSystems.BootSystem.IsReady;
             var gameNetworkController = new GameNetworkController();
             await gameNetworkController.ConnectAsync();
+            TinyServiceLocator.RegisterAsync(gameNetworkController).Forget();
             TinyServiceLocator.RegisterAsync(this.gameDesignData, this.destroyCancellationToken).Forget();
             TinyServiceLocator.RegisterAsync<IInputController>(new InputController(), this.destroyCancellationToken).Forget();
             TinyServiceLocator.Resolve<IInputController>().SetCursorVisibliity(false);
