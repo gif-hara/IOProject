@@ -1,6 +1,11 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using R3;
+using R3.Triggers;
 using SoftGear.Strix.Unity.Runtime;
+using Unity.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace IOProject.ActorControllers
 {
@@ -18,6 +23,27 @@ namespace IOProject.ActorControllers
             this.LocatorController = new ActorLocatorController(locators);
             this.PostureController = GetComponent<IActorPostureController>();
             this.PostureController.Setup(this);
+            var gameNetworkController = TinyServiceLocator.Resolve<GameNetworkController>();
+            this.UpdateAsObservable()
+                .Subscribe(_ =>
+                {
+                    if (!isLocal)
+                    {
+                        return;
+                    }
+                    if (Keyboard.current.qKey.wasPressedThisFrame)
+                    {
+                        Debug.Log("qKey.wasPressedThisFrame", this);
+                        gameNetworkController.SendRoomRelayAsync(new NetworkMessage.Helloworld { message = $"Hello, world! {this.strixReplicator.networkInstanceId}" }).Forget();
+                    }
+                })
+                .RegisterTo(this.destroyCancellationToken);
+            gameNetworkController.RoomRelayAsObservable()
+                .Subscribe(args =>
+                {
+                    Debug.Log($"RoomRelayAsObservable: {args}", this);
+                })
+                .RegisterTo(this.destroyCancellationToken);
         }
 
         public Actor Spawn()
