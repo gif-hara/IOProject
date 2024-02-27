@@ -1,4 +1,7 @@
 using Cysharp.Threading.Tasks;
+using R3;
+using SoftGear.Strix.Client.Core;
+using SoftGear.Strix.Client.Room.Message;
 using SoftGear.Strix.Net.Logging;
 using SoftGear.Strix.Net.Serialization;
 using SoftGear.Strix.Unity.Runtime;
@@ -11,12 +14,33 @@ namespace IOProject
     /// </summary>
     public sealed class GameNetworkController
     {
+        private readonly Subject<NotificationEventArgs<RoomRelayNotification>> roomRelaySubject = new();
+        public Observable<NotificationEventArgs<RoomRelayNotification>> RoomRelayAsObservable() => this.roomRelaySubject;
+
         public async UniTask ConnectAsync()
         {
             ObjectFactory.Instance.Register(typeof(StrixMessageStageChunkModel));
             ObjectFactory.Instance.Register(typeof(StrixMessageStageChunkModelDictionary));
             ObjectFactory.Instance.Register(typeof(DamageDictionary));
+            ObjectFactory.Instance.Register(typeof(NetworkMessage.Helloworld));
             await ConnectMasterServerAsync();
+            StrixNetwork.instance.roomSession.roomClient.RoomRelayNotified += OnRoomRelayNotified;
+        }
+
+        public UniTask SendRoomRelayAsync<T>(T message)
+        {
+            var source = new UniTaskCompletionSource();
+            StrixNetwork.instance.SendRoomRelay(
+                message,
+                args =>
+                {
+                    source.TrySetResult();
+                },
+                args =>
+                {
+                    source.TrySetException(new System.Exception(args.ToString()));
+                });
+            return source.Task;
         }
 
         private async UniTask ConnectMasterServerAsync()
@@ -87,6 +111,11 @@ namespace IOProject
             );
 
             await source.Task;
+        }
+
+        private void OnRoomRelayNotified(NotificationEventArgs<RoomRelayNotification> notification)
+        {
+            roomRelaySubject.OnNext(notification);
         }
     }
 }
