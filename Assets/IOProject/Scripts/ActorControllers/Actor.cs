@@ -39,6 +39,7 @@ namespace IOProject.ActorControllers
                 })
                 .RegisterTo(this.destroyCancellationToken);
             gameNetworkController.RoomRelayAsObservable()
+                .Where(x => x.Data.GetFromUid().Equals(this.strixReplicator.ownerUid))
                 .Subscribe(args =>
                 {
                     Debug.Log($"RoomRelayAsObservable: {args}", this);
