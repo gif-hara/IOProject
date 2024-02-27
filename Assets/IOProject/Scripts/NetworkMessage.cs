@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace IOProject
 {
     /// <summary>
@@ -13,6 +15,16 @@ namespace IOProject
             {
                 return $"message: {message}";
             }
+        }
+
+        public sealed class UpdateActorPosition
+        {
+            public Vector3 position;
+        }
+
+        public sealed class UpdateActorPositionId
+        {
+            public Vector2Int positionId;
         }
     }
 }
