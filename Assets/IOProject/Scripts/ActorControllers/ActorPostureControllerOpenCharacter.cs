@@ -37,6 +37,10 @@ namespace IOProject.ActorControllers
             actor.GetAsyncUpdateTrigger()
                 .Subscribe(_ =>
                 {
+                    if (!actor.isLocal)
+                    {
+                        return;
+                    }
                     if (velocity != Vector3.zero)
                     {
                         characterController.Move(velocity);
@@ -49,6 +53,7 @@ namespace IOProject.ActorControllers
                             positionIdReactiveProperty.Value = newPositionId;
                         }
                         velocity = Vector3.zero;
+                        actor.SendPosition();
                     }
                 })
                 .AddTo(actor.destroyCancellationToken);
@@ -73,6 +78,11 @@ namespace IOProject.ActorControllers
             {
                 t.localEulerAngles = new Vector3(0, rotationY, 0);
             }
+        }
+
+        public void SyncPositionId(Vector2Int positionId)
+        {
+            positionIdReactiveProperty.Value = positionId;
         }
     }
 }

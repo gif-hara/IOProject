@@ -15,5 +15,7 @@ namespace IOProject.ActorControllers
         void AddRotate(Vector3 eulerAngle);
 
         ReadOnlyReactiveProperty<Vector2Int> PositionIdReactiveProperty { get; }
+
+        void SyncPositionId(Vector2Int positionId);
     }
 }
