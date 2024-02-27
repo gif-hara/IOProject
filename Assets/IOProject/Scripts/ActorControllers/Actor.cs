@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
 using SoftGear.Strix.Unity.Runtime;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,10 +38,11 @@ namespace IOProject.ActorControllers
                 })
                 .RegisterTo(this.destroyCancellationToken);
             gameNetworkController.RoomRelayAsObservable()
-                .Where(x => x.Data.GetFromUid().Equals(this.strixReplicator.ownerUid))
-                .Subscribe(args =>
+                .WhereOwner(this)
+                .MatchMessage<NetworkMessage.Helloworld>()
+                .Subscribe(x =>
                 {
-                    Debug.Log($"RoomRelayAsObservable: {args}", this);
+                    Debug.Log($"RoomRelayAsObservable: {x.message}", this);
                 })
                 .RegisterTo(this.destroyCancellationToken);
         }
