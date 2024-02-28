@@ -13,21 +13,36 @@ namespace IOProject.ActorControllers
 
         public void Begin(Actor actor)
         {
-            TinyServiceLocator.Resolve<GameNetworkController>()
+            var gameNetworkController = TinyServiceLocator.Resolve<GameNetworkController>();
+            var gameDesignData = TinyServiceLocator.Resolve<GameDesignData>();
+            gameNetworkController
                 .RoomRelayAsObservable()
                 .WhereOwner(actor.NetworkController)
                 .MatchMessage<NetworkMessage.UpdateActorPosition>()
                 .Subscribe(x =>
                 {
-                    var diff = x.message.position - actor.transform.position;
-                    if (diff.magnitude > 5.0f)
+                    var localActor = TinyServiceLocator.Resolve<Actor>("LocalActor");
+                    if (localActor == null)
                     {
-                        actor.PostureController.Warp(x.message.position);
+                        return;
                     }
-                    else
-                    {
-                        actor.PostureController.AddMove(diff);
-                    }
+                    var position = x.message.position;
+                    var positionId = actor.PostureController.PositionIdReactiveProperty.CurrentValue;
+                    var diffId = positionId - localActor.PostureController.PositionIdReactiveProperty.CurrentValue;
+                    actor.PostureController.Warp(new Vector3(
+                        position.x + diffId.x * gameDesignData.StageChunkSize,
+                        position.y,
+                        position.z + diffId.y * gameDesignData.StageChunkSize
+                        ));
+                })
+                .RegisterTo(actor.destroyCancellationToken);
+            gameNetworkController
+                .RoomRelayAsObservable()
+                .WhereOwner(actor.NetworkController)
+                .MatchMessage<NetworkMessage.UpdateActorPositionId>()
+                .Subscribe(x =>
+                {
+                    actor.PostureController.SyncPositionId(x.message.positionId);
                 })
                 .RegisterTo(actor.destroyCancellationToken);
         }

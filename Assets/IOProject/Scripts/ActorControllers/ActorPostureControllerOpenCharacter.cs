@@ -47,6 +47,10 @@ namespace IOProject.ActorControllers
                             var diff = newPositionId - positionIdReactiveProperty.Value;
                             characterController.transform.position -= new Vector3(diff.x * chunkSize, 0, diff.y * chunkSize);
                             positionIdReactiveProperty.Value = newPositionId;
+                            if (actor.NetworkController.isLocal)
+                            {
+                                actor.NetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateActorPositionId { positionId = newPositionId }).Forget();
+                            }
                         }
                         velocity = Vector3.zero;
                         if (actor.NetworkController.isLocal)
