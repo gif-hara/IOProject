@@ -17,12 +17,12 @@ namespace IOProject
             }
         }
 
-        public sealed class UpdateActorPosition
+        public struct UpdateActorPosition
         {
             public Vector3 position;
         }
 
-        public sealed class UpdateActorPositionId
+        public struct UpdateActorPositionId
         {
             public Vector2Int positionId;
         }
