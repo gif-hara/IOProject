@@ -27,7 +27,7 @@ namespace IOProject.Sequences
         {
             var ownerActor = container.Resolve<Actor>(ownerActorName);
             var targetStageChunk = container.Resolve<StageChunk>(targetStageChunkName);
-            ownerActor.GiveDamage(targetStageChunk, damage);
+            // ownerActor.GiveDamage(targetStageChunk, damage);
 
             return UniTask.CompletedTask;
         }

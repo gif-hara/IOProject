@@ -27,7 +27,7 @@ namespace IOProject.Sequences
         {
             var ownerActor = container.Resolve<Actor>(ownerActorName);
             var targetActor = container.Resolve<Actor>(targetActorName);
-            ownerActor.GiveDamage(targetActor, damage);
+            // ownerActor.GiveDamage(targetActor, damage);
 
             return UniTask.CompletedTask;
         }
