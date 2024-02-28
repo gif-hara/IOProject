@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9115523774149022476}
   - component: {fileID: -2475170256125632000}
+  - component: {fileID: 6666504510128970207}
   - component: {fileID: -1804719526980325351}
   m_Layer: 6
   m_Name: Actor.Base
@@ -47,6 +48,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locators: []
+  networkController: {fileID: 6666504510128970207}
+--- !u!114 &6666504510128970207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6468868194897397533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3134802014171604d8a8547f94021ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-1804719526980325351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strixBehaviours:
-  - {fileID: -2475170256125632000}
+  - {fileID: 6666504510128970207}
   objectType: 2
   sendRate: 5
   syncDestroy: 1
