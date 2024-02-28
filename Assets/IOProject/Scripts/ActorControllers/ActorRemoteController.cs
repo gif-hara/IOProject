@@ -10,7 +10,6 @@ namespace IOProject.ActorControllers
     /// </summary>
     public sealed class ActorRemoteController
     {
-        private Vector3 position;
 
         public void Begin(Actor actor)
         {
@@ -24,12 +23,10 @@ namespace IOProject.ActorControllers
                     if (diff.magnitude > 5.0f)
                     {
                         actor.PostureController.Warp(x.message.position);
-                        position = x.message.position;
                     }
                     else
                     {
                         actor.PostureController.AddMove(diff);
-                        position += diff;
                     }
                 })
                 .RegisterTo(actor.destroyCancellationToken);
