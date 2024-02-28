@@ -3,7 +3,6 @@ using R3;
 using R3.Triggers;
 using SoftGear.Strix.Unity.Runtime;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 namespace IOProject.ActorControllers
@@ -13,6 +12,9 @@ namespace IOProject.ActorControllers
     /// </summary>
     public sealed class ActorNetworkController : StrixBehaviour
     {
+        [SerializeField]
+        private Actor actor;
+
         void Awake()
         {
             var gameNetworkController = TinyServiceLocator.Resolve<GameNetworkController>();
@@ -40,6 +42,11 @@ namespace IOProject.ActorControllers
                 .RegisterTo(this.destroyCancellationToken);
         }
 
+        void Start()
+        {
+            StartAsRemote().Forget();
+        }
+
         public UniTask SendRoomRelayAsync<T>(T message)
         {
             if (!isLocal)
@@ -48,6 +55,18 @@ namespace IOProject.ActorControllers
                 return UniTask.CompletedTask;
             }
             return TinyServiceLocator.Resolve<GameNetworkController>().SendRoomRelayAsync(message);
+        }
+
+        private async UniTask StartAsRemote()
+        {
+            if (isLocal)
+            {
+                return;
+            }
+
+            await UniTask.WaitUntil(() => this.strixReplicator.didStart);
+            var remoteController = new ActorRemoteController();
+            remoteController.Begin(actor);
         }
     }
 }
