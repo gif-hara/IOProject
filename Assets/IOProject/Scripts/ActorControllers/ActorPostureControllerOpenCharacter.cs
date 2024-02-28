@@ -49,6 +49,10 @@ namespace IOProject.ActorControllers
                             positionIdReactiveProperty.Value = newPositionId;
                         }
                         velocity = Vector3.zero;
+                        if (actor.NetworkController.isLocal)
+                        {
+                            actor.NetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateActorPosition { position = transform.position }).Forget();
+                        }
                     }
                 })
                 .AddTo(actor.destroyCancellationToken);
@@ -78,6 +82,11 @@ namespace IOProject.ActorControllers
         public void SyncPositionId(Vector2Int positionId)
         {
             positionIdReactiveProperty.Value = positionId;
+        }
+
+        public void Warp(Vector3 position)
+        {
+            characterController.transform.position = position;
         }
     }
 }

@@ -17,5 +17,7 @@ namespace IOProject.ActorControllers
         ReadOnlyReactiveProperty<Vector2Int> PositionIdReactiveProperty { get; }
 
         void SyncPositionId(Vector2Int positionId);
+
+        void Warp(Vector3 position);
     }
 }
