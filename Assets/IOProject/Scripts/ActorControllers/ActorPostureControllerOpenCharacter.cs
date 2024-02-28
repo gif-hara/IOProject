@@ -22,6 +22,8 @@ namespace IOProject.ActorControllers
         [SerializeField]
         private List<Transform> rotationYTransforms;
 
+        private Actor actor;
+
         private Vector3 velocity;
 
         private float rotationX;
@@ -34,6 +36,7 @@ namespace IOProject.ActorControllers
 
         public void Setup(Actor actor)
         {
+            this.actor = actor;
             actor.GetAsyncUpdateTrigger()
                 .Subscribe(_ =>
                 {
@@ -69,6 +72,10 @@ namespace IOProject.ActorControllers
 
         public void AddRotate(Vector3 eulerAngle)
         {
+            if (eulerAngle == Vector3.zero)
+            {
+                return;
+            }
             rotationX += eulerAngle.x;
             rotationY += eulerAngle.y;
             rotationX = Mathf.Clamp(rotationX, -89, 89);
@@ -81,6 +88,11 @@ namespace IOProject.ActorControllers
             {
                 t.localEulerAngles = new Vector3(0, rotationY, 0);
             }
+
+            if (actor.NetworkController.isLocal)
+            {
+                actor.NetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateActorRotation { rotation = new Vector3(rotationX, rotationY, 0) }).Forget();
+            }
         }
 
         public void SyncPositionId(Vector2Int positionId)
@@ -88,9 +100,23 @@ namespace IOProject.ActorControllers
             positionIdReactiveProperty.Value = positionId;
         }
 
-        public void Warp(Vector3 position)
+        public void SyncPosition(Vector3 position)
         {
             characterController.transform.position = position;
+        }
+
+        public void SyncRotation(Vector3 rotation)
+        {
+            rotationX = rotation.x;
+            rotationY = rotation.y;
+            foreach (var t in rotationXTransforms)
+            {
+                t.localEulerAngles = new Vector3(rotationX, 0, 0);
+            }
+            foreach (var t in rotationYTransforms)
+            {
+                t.localEulerAngles = new Vector3(0, rotationY, 0);
+            }
         }
     }
 }

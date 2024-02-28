@@ -18,6 +18,8 @@ namespace IOProject.ActorControllers
 
         void SyncPositionId(Vector2Int positionId);
 
-        void Warp(Vector3 position);
+        void SyncPosition(Vector3 position);
+
+        void SyncRotation(Vector3 rotation);
     }
 }

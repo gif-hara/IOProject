@@ -29,7 +29,7 @@ namespace IOProject.ActorControllers
                     var position = x.message.position;
                     var positionId = actor.PostureController.PositionIdReactiveProperty.CurrentValue;
                     var diffId = positionId - localActor.PostureController.PositionIdReactiveProperty.CurrentValue;
-                    actor.PostureController.Warp(new Vector3(
+                    actor.PostureController.SyncPosition(new Vector3(
                         position.x + diffId.x * gameDesignData.StageChunkSize,
                         position.y,
                         position.z + diffId.y * gameDesignData.StageChunkSize
@@ -43,6 +43,15 @@ namespace IOProject.ActorControllers
                 .Subscribe(x =>
                 {
                     actor.PostureController.SyncPositionId(x.message.positionId);
+                })
+                .RegisterTo(actor.destroyCancellationToken);
+            gameNetworkController
+                .RoomRelayAsObservable()
+                .WhereOwner(actor.NetworkController)
+                .MatchMessage<NetworkMessage.UpdateActorRotation>()
+                .Subscribe(x =>
+                {
+                    actor.PostureController.SyncRotation(x.message.rotation);
                 })
                 .RegisterTo(actor.destroyCancellationToken);
         }

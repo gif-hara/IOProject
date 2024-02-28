@@ -26,5 +26,10 @@ namespace IOProject
         {
             public Vector2Int positionId;
         }
+
+        public struct UpdateActorRotation
+        {
+            public Vector3 rotation;
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace IOProject
             ObjectFactory.Instance.Register(typeof(NetworkMessage.Helloworld));
             ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateActorPosition));
             ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateActorPositionId));
+            ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateActorRotation));
             await ConnectMasterServerAsync();
             StrixNetwork.instance.roomSession.roomClient.RoomRelayNotified += OnRoomRelayNotified;
         }
@@ -40,7 +41,7 @@ namespace IOProject
                 },
                 args =>
                 {
-                    source.TrySetException(new System.Exception(args.ToString()));
+                    source.TrySetException(new System.Exception($"SendRoomRelayAsync: {args}, message = {message}, cause = {args.cause}, session = {args.session}"));
                 });
             return source.Task;
         }
