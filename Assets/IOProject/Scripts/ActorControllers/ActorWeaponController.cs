@@ -10,9 +10,11 @@ namespace IOProject
     /// </summary>
     public sealed class ActorWeaponController
     {
-        private bool canFire = false;
+        private readonly ReactiveProperty<bool> canFire = new(false);
 
         private float currentFireCoolTime = 0.0f;
+
+        public ReadOnlyReactiveProperty<bool> CanFireReactiveProperty => canFire;
 
         public void Setup(Actor actor)
         {
@@ -22,7 +24,7 @@ namespace IOProject
                     var gameDesignData = TinyServiceLocator.Resolve<GameDesignData>();
                     currentFireCoolTime -= Time.deltaTime;
                     var fireCoolTime = gameDesignData.FireCoolTime;
-                    if (currentFireCoolTime < 0.0f && canFire)
+                    if (currentFireCoolTime < 0.0f && canFire.Value)
                     {
                         currentFireCoolTime = fireCoolTime;
                         var firePoint = actor.LocatorController.GetLocator("FirePoint");
@@ -34,17 +36,17 @@ namespace IOProject
 
         public void BeginFire()
         {
-            canFire = true;
+            canFire.Value = true;
         }
 
         public void EndFire()
         {
-            canFire = false;
+            canFire.Value = false;
         }
 
         public void SyncCanFire(bool canFire)
         {
-            this.canFire = canFire;
+            this.canFire.Value = canFire;
         }
     }
 }

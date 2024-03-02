@@ -48,6 +48,21 @@ namespace IOProject.ActorControllers
                 })
                 .RegisterTo(actor.destroyCancellationToken);
 
+            actor.WeaponController.CanFireReactiveProperty
+                .Subscribe(x =>
+                {
+                    if (!actor.NetworkController.isLocal)
+                    {
+                        return;
+                    }
+                    gameNetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateCanFire
+                    {
+                        canFire = x
+                    })
+                    .Forget();
+                })
+                .RegisterTo(actor.destroyCancellationToken);
+
             gameNetworkController
                 .RoomRelayAsObservable()
                 .WhereOwner(actor.NetworkController)
@@ -77,6 +92,15 @@ namespace IOProject.ActorControllers
                 .Subscribe(x =>
                 {
                     actor.PostureController.SyncRotation(x.message.rotation);
+                })
+                .RegisterTo(actor.destroyCancellationToken);
+            gameNetworkController
+                .RoomRelayAsObservable()
+                .WhereOwner(actor.NetworkController)
+                .MatchMessage<NetworkMessage.UpdateCanFire>()
+                .Subscribe(x =>
+                {
+                    actor.WeaponController.SyncCanFire(x.message.canFire);
                 })
                 .RegisterTo(actor.destroyCancellationToken);
         }

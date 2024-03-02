@@ -27,5 +27,10 @@ namespace IOProject
         {
             public Vector3 rotation;
         }
+
+        public struct UpdateCanFire
+        {
+            public bool canFire;
+        }
     }
 }
