@@ -37,5 +37,12 @@ namespace IOProject
         /// アクターの秒間リモート送信頻度
         /// </summary>
         public int ActorRemoteSendFrequency => actorRemoteSendFrequency;
+
+        [SerializeField]
+        private Projectile projectilePrefab;
+        /// <summary>
+        /// プロジェクタイルのプレハブ
+        /// </summary>
+        public Projectile ProjectilePrefab => projectilePrefab;
     }
 }

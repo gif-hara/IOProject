@@ -17,3 +17,4 @@ MonoBehaviour:
   stageChunkDefaultDamageThreshold: 100
   stageChunkOccupiedDamageThreshold: 200
   actorRemoteSendFrequency: 5
+  projectilePrefab: {fileID: 8665686412741492718, guid: 61c49ec161b7e0a458204646ab844fff, type: 3}
