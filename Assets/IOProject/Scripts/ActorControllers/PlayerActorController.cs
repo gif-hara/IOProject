@@ -12,6 +12,7 @@ namespace IOProject.ActorControllers
             var inputController = TinyServiceLocator.Resolve<IInputController>();
             var fireCoolTime = 0.0f;
             var canFire = false;
+            var gameDesignData = TinyServiceLocator.Resolve<GameDesignData>();
             actor.LocatorController.GetLocator("View.ThirdPerson").gameObject.SetActive(false);
             actor.LocatorController.GetLocator("View.FirstPerson").gameObject.SetActive(true);
             actor.GetAsyncUpdateTrigger()
@@ -30,7 +31,7 @@ namespace IOProject.ActorControllers
                     {
                         fireCoolTime = playerSpec.fireCoolTime;
                         var firePoint = actor.LocatorController.GetLocator("FirePoint");
-                        playerSpec.projectilePrefab.Spawn(actor, firePoint.position, firePoint.rotation);
+                        gameDesignData.ProjectilePrefab.Spawn(actor, firePoint.position, firePoint.rotation);
                     }
                 })
                 .AddTo(actor.destroyCancellationToken);
