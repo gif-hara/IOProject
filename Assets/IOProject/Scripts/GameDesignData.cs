@@ -30,5 +30,12 @@ namespace IOProject
         /// 占有されたステージチャンクのダメージ閾値
         /// </summary>
         public int StageChunkOccupiedDamageThreshold => stageChunkOccupiedDamageThreshold;
+
+        [SerializeField]
+        private int actorRemoteSendFrequency;
+        /// <summary>
+        /// アクターの秒間リモート送信頻度
+        /// </summary>
+        public int ActorRemoteSendFrequency => actorRemoteSendFrequency;
     }
 }

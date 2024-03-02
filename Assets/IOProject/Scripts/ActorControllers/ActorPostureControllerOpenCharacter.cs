@@ -26,9 +26,9 @@ namespace IOProject.ActorControllers
 
         private Vector3 velocity;
 
-        private float rotationX;
+        public float RotationX { get; private set; }
 
-        private float rotationY;
+        public float RotationY { get; private set; }
 
         private ReactiveProperty<Vector2Int> positionIdReactiveProperty = new ReactiveProperty<Vector2Int>();
 
@@ -50,16 +50,8 @@ namespace IOProject.ActorControllers
                             var diff = newPositionId - positionIdReactiveProperty.Value;
                             characterController.transform.position -= new Vector3(diff.x * chunkSize, 0, diff.y * chunkSize);
                             positionIdReactiveProperty.Value = newPositionId;
-                            if (actor.NetworkController.isLocal)
-                            {
-                                actor.NetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateActorPositionId { positionId = newPositionId }).Forget();
-                            }
                         }
                         velocity = Vector3.zero;
-                        if (actor.NetworkController.isLocal)
-                        {
-                            actor.NetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateActorPosition { position = transform.position }).Forget();
-                        }
                     }
                 })
                 .AddTo(actor.destroyCancellationToken);
@@ -76,22 +68,17 @@ namespace IOProject.ActorControllers
             {
                 return;
             }
-            rotationX += eulerAngle.x;
-            rotationY += eulerAngle.y;
-            rotationX = Mathf.Clamp(rotationX, -89, 89);
-            rotationY = Mathf.Repeat(rotationY, 360);
+            RotationX += eulerAngle.x;
+            RotationY += eulerAngle.y;
+            RotationX = Mathf.Clamp(RotationX, -89, 89);
+            RotationY = Mathf.Repeat(RotationY, 360);
             foreach (var t in rotationXTransforms)
             {
-                t.localEulerAngles = new Vector3(rotationX, 0, 0);
+                t.localEulerAngles = new Vector3(RotationX, 0, 0);
             }
             foreach (var t in rotationYTransforms)
             {
-                t.localEulerAngles = new Vector3(0, rotationY, 0);
-            }
-
-            if (actor.NetworkController.isLocal)
-            {
-                actor.NetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateActorRotation { rotation = new Vector3(rotationX, rotationY, 0) }).Forget();
+                t.localEulerAngles = new Vector3(0, RotationY, 0);
             }
         }
 
@@ -107,15 +94,15 @@ namespace IOProject.ActorControllers
 
         public void SyncRotation(Vector3 rotation)
         {
-            rotationX = rotation.x;
-            rotationY = rotation.y;
+            RotationX = rotation.x;
+            RotationY = rotation.y;
             foreach (var t in rotationXTransforms)
             {
-                t.localEulerAngles = new Vector3(rotationX, 0, 0);
+                t.localEulerAngles = new Vector3(RotationX, 0, 0);
             }
             foreach (var t in rotationYTransforms)
             {
-                t.localEulerAngles = new Vector3(0, rotationY, 0);
+                t.localEulerAngles = new Vector3(0, RotationY, 0);
             }
         }
     }

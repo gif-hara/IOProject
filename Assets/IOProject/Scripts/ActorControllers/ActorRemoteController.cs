@@ -1,7 +1,7 @@
+using Cysharp.Threading.Tasks;
 using R3;
-using Unity.VisualScripting;
+using R3.Triggers;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace IOProject.ActorControllers
 {
@@ -10,11 +10,44 @@ namespace IOProject.ActorControllers
     /// </summary>
     public sealed class ActorRemoteController
     {
-
         public void Begin(Actor actor)
         {
             var gameNetworkController = TinyServiceLocator.Resolve<GameNetworkController>();
             var gameDesignData = TinyServiceLocator.Resolve<GameDesignData>();
+            var sendTiming = 1.0f / gameDesignData.ActorRemoteSendFrequency;
+            var currentSendTime = 0.0f;
+
+            actor.UpdateAsObservable()
+                .Subscribe(_ =>
+                {
+                    if (!actor.NetworkController.isLocal)
+                    {
+                        return;
+                    }
+                    currentSendTime += Time.deltaTime;
+                    if (currentSendTime < sendTiming)
+                    {
+                        return;
+                    }
+                    currentSendTime = 0.0f;
+                    gameNetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateActorPosition
+                    {
+                        position = actor.transform.position,
+                        positionId = actor.PostureController.PositionIdReactiveProperty.CurrentValue
+                    })
+                    .Forget();
+                    gameNetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateActorRotation
+                    {
+                        rotation = new Vector3(
+                            actor.PostureController.RotationX,
+                            actor.PostureController.RotationY,
+                            0.0f
+                            )
+                    })
+                    .Forget();
+                })
+                .RegisterTo(actor.destroyCancellationToken);
+
             gameNetworkController
                 .RoomRelayAsObservable()
                 .WhereOwner(actor.NetworkController)
@@ -26,6 +59,7 @@ namespace IOProject.ActorControllers
                     {
                         return;
                     }
+                    actor.PostureController.SyncPositionId(x.message.positionId);
                     var position = x.message.position;
                     var positionId = actor.PostureController.PositionIdReactiveProperty.CurrentValue;
                     var diffId = positionId - localActor.PostureController.PositionIdReactiveProperty.CurrentValue;
@@ -34,15 +68,6 @@ namespace IOProject.ActorControllers
                         position.y,
                         position.z + diffId.y * gameDesignData.StageChunkSize
                         ));
-                })
-                .RegisterTo(actor.destroyCancellationToken);
-            gameNetworkController
-                .RoomRelayAsObservable()
-                .WhereOwner(actor.NetworkController)
-                .MatchMessage<NetworkMessage.UpdateActorPositionId>()
-                .Subscribe(x =>
-                {
-                    actor.PostureController.SyncPositionId(x.message.positionId);
                 })
                 .RegisterTo(actor.destroyCancellationToken);
             gameNetworkController

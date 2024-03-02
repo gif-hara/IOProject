@@ -16,3 +16,4 @@ MonoBehaviour:
   stageViewRange: 10
   stageChunkDefaultDamageThreshold: 100
   stageChunkOccupiedDamageThreshold: 200
+  actorRemoteSendFrequency: 5

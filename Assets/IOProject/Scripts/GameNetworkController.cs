@@ -24,7 +24,6 @@ namespace IOProject
             ObjectFactory.Instance.Register(typeof(DamageDictionary));
             ObjectFactory.Instance.Register(typeof(NetworkMessage.Helloworld));
             ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateActorPosition));
-            ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateActorPositionId));
             ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateActorRotation));
             await ConnectMasterServerAsync();
             StrixNetwork.instance.roomSession.roomClient.RoomRelayNotified += OnRoomRelayNotified;

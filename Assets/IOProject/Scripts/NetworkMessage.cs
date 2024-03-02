@@ -20,10 +20,6 @@ namespace IOProject
         public struct UpdateActorPosition
         {
             public Vector3 position;
-        }
-
-        public struct UpdateActorPositionId
-        {
             public Vector2Int positionId;
         }
 

@@ -16,6 +16,10 @@ namespace IOProject.ActorControllers
 
         ReadOnlyReactiveProperty<Vector2Int> PositionIdReactiveProperty { get; }
 
+        float RotationX { get; }
+
+        float RotationY { get; }
+
         void SyncPositionId(Vector2Int positionId);
 
         void SyncPosition(Vector3 position);

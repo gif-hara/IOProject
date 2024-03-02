@@ -59,11 +59,6 @@ namespace IOProject.ActorControllers
 
         private async UniTask StartAsRemote()
         {
-            if (isLocal)
-            {
-                return;
-            }
-
             await UniTask.WaitUntil(() => this.strixReplicator.didStart);
             var remoteController = new ActorRemoteController();
             remoteController.Begin(actor);
