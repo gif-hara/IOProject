@@ -14,4 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 11
   rotateSpeed: 0.3
-  fireCoolTime: 0.1

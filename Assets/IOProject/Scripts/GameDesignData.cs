@@ -44,5 +44,12 @@ namespace IOProject
         /// プロジェクタイルのプレハブ
         /// </summary>
         public Projectile ProjectilePrefab => projectilePrefab;
+
+        [SerializeField]
+        private float fireCoolTime;
+        /// <summary>
+        /// 射撃のクールタイム
+        /// </summary>
+        public float FireCoolTime => fireCoolTime;
     }
 }

@@ -11,7 +11,5 @@ namespace IOProject
         public float moveSpeed = 5.0f;
 
         public float rotateSpeed = 5.0f;
-
-        public float fireCoolTime;
     }
 }

@@ -17,11 +17,15 @@ namespace IOProject.ActorControllers
 
         public ActorNetworkController NetworkController => this.networkController;
 
+        public ActorWeaponController WeaponController { get; private set; }
+
         void Awake()
         {
             this.LocatorController = new ActorLocatorController(locators);
             this.PostureController = GetComponent<IActorPostureController>();
             this.PostureController.Setup(this);
+            this.WeaponController = new ActorWeaponController();
+            this.WeaponController.Setup(this);
         }
 
         public Actor Spawn()
