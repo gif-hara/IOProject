@@ -41,5 +41,10 @@ namespace IOProject
         {
             canFire = false;
         }
+
+        public void SyncCanFire(bool canFire)
+        {
+            this.canFire = canFire;
+        }
     }
 }
