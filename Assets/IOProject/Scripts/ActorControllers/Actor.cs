@@ -42,7 +42,6 @@ namespace IOProject.ActorControllers
 
         public void GiveDamage(Actor target, int damage)
         {
-            Debug.Log($"GiveDamage: {damage}", this);
             networkController.SendRoomRelayAsync(
                 new NetworkMessage.GiveDamageActor()
                 {
