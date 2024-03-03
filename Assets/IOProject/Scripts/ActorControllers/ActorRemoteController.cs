@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
+using SoftGear.Strix.Unity.Runtime;
 using UnityEngine;
 
 namespace IOProject.ActorControllers
@@ -18,12 +19,9 @@ namespace IOProject.ActorControllers
             var currentSendTime = 0.0f;
 
             actor.UpdateAsObservable()
+                .Where(_ => actor.NetworkController.isLocal)
                 .Subscribe(_ =>
                 {
-                    if (!actor.NetworkController.isLocal)
-                    {
-                        return;
-                    }
                     currentSendTime += Time.deltaTime;
                     if (currentSendTime < sendTiming)
                     {
@@ -49,15 +47,36 @@ namespace IOProject.ActorControllers
                 .RegisterTo(actor.destroyCancellationToken);
 
             actor.WeaponController.CanFireReactiveProperty
+                .Where(_ => actor.NetworkController.isLocal)
                 .Subscribe(x =>
                 {
-                    if (!actor.NetworkController.isLocal)
-                    {
-                        return;
-                    }
                     gameNetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateCanFire
                     {
                         canFire = x
+                    })
+                    .Forget();
+                })
+                .RegisterTo(actor.destroyCancellationToken);
+
+            actor.StatusController.HitPointMaxReactiveProperty
+                .Where(_ => actor.NetworkController.isLocal)
+                .Subscribe(x =>
+                {
+                    gameNetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateHitPointMax
+                    {
+                        hitPointMax = x
+                    })
+                    .Forget();
+                })
+                .RegisterTo(actor.destroyCancellationToken);
+
+            actor.StatusController.HitPointReactiveProperty
+                .Where(_ => actor.NetworkController.isLocal)
+                .Subscribe(x =>
+                {
+                    gameNetworkController.SendRoomRelayAsync(new NetworkMessage.UpdateHitPoint
+                    {
+                        hitPoint = x
                     })
                     .Forget();
                 })
@@ -101,6 +120,34 @@ namespace IOProject.ActorControllers
                 .Subscribe(x =>
                 {
                     actor.WeaponController.SyncCanFire(x.message.canFire);
+                })
+                .RegisterTo(actor.destroyCancellationToken);
+            gameNetworkController
+                .RoomRelayAsObservable()
+                .WhereOwner(actor.NetworkController)
+                .MatchMessage<NetworkMessage.UpdateHitPointMax>()
+                .Subscribe(x =>
+                {
+                    actor.StatusController.SyncHitPointMax(x.message.hitPointMax);
+                })
+                .RegisterTo(actor.destroyCancellationToken);
+            gameNetworkController
+                .RoomRelayAsObservable()
+                .WhereOwner(actor.NetworkController)
+                .MatchMessage<NetworkMessage.UpdateHitPoint>()
+                .Subscribe(x =>
+                {
+                    actor.StatusController.SyncHitPoint(x.message.hitPoint);
+                })
+                .RegisterTo(actor.destroyCancellationToken);
+            gameNetworkController
+                .RoomRelayAsObservable()
+                .WhereOwner(actor.NetworkController)
+                .MatchMessage<NetworkMessage.GiveDamageActor>()
+                .Subscribe(x =>
+                {
+                    var target = TinyServiceLocator.Resolve<ActorManager>().GetActor(x.message.target);
+                    target.StatusController.TakeDamage(x.message.damage);
                 })
                 .RegisterTo(actor.destroyCancellationToken);
         }
