@@ -39,7 +39,6 @@ namespace IOProject.ActorControllers
         public void SyncHitPoint(int hitPoint)
         {
             this.hitPoint.Value = hitPoint;
-            Debug.Log($"SyncHitPoint: networkInstanceId = {actor.NetworkController.strixReplicator.networkInstanceId}, HitPoint = {hitPoint}");
         }
     }
 }
