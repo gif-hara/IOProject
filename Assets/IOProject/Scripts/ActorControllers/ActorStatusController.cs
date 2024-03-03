@@ -9,8 +9,6 @@ namespace IOProject.ActorControllers
     /// </summary>
     public sealed class ActorStatusController
     {
-        private readonly Actor actor;
-
         private readonly ReactiveProperty<int> hitPointMax = new();
 
         private readonly ReactiveProperty<int> hitPoint = new();
@@ -19,9 +17,8 @@ namespace IOProject.ActorControllers
 
         public ReadOnlyReactiveProperty<int> HitPointReactiveProperty => hitPoint;
 
-        public ActorStatusController(Actor actor, int hitPointMax)
+        public ActorStatusController(int hitPointMax)
         {
-            this.actor = actor;
             this.hitPointMax.Value = hitPointMax;
             this.hitPoint.Value = hitPointMax;
         }

@@ -29,7 +29,7 @@ namespace IOProject.ActorControllers
             this.PostureController.Setup(this);
             this.WeaponController = new ActorWeaponController();
             this.WeaponController.Setup(this);
-            this.StatusController = new ActorStatusController(this, TinyServiceLocator.Resolve<GameDesignData>().ActorHitPoint);
+            this.StatusController = new ActorStatusController(TinyServiceLocator.Resolve<GameDesignData>().ActorHitPoint);
             TinyServiceLocator.Resolve<ActorManager>().AddActor(this);
         }
 
