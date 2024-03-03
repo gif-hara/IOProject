@@ -26,8 +26,12 @@ namespace IOProject.Sequences
         public UniTask PlayAsync(Container container, CancellationToken cancellationToken)
         {
             var ownerActor = container.Resolve<Actor>(ownerActorName);
+            if (!ownerActor.NetworkController.isLocal)
+            {
+                return UniTask.CompletedTask;
+            }
             var targetActor = container.Resolve<Actor>(targetActorName);
-            // ownerActor.GiveDamage(targetActor, damage);
+            ownerActor.GiveDamage(targetActor, damage);
 
             return UniTask.CompletedTask;
         }
