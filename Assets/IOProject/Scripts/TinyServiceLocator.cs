@@ -68,6 +68,16 @@ namespace IOProject
             return (T)namedServices[typeof(T)][name].service;
         }
 
+        public static T TryResolve<T>()
+        {
+            return services.ContainsKey(typeof(T)) ? (T)services[typeof(T)].service : default;
+        }
+
+        public static T TryResolve<T>(string name)
+        {
+            return namedServices.ContainsKey(typeof(T)) && namedServices[typeof(T)].ContainsKey(name) ? (T)namedServices[typeof(T)][name].service : default;
+        }
+
         public static bool Contains<T>()
         {
             return services.ContainsKey(typeof(T));

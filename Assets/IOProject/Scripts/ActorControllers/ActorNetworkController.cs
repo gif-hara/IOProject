@@ -94,7 +94,7 @@ namespace IOProject.ActorControllers
                 .MatchMessage<NetworkMessage.UpdateActorPosition>()
                 .Subscribe(x =>
                 {
-                    var localActor = TinyServiceLocator.Resolve<Actor>("LocalActor");
+                    var localActor = TinyServiceLocator.TryResolve<Actor>("LocalActor");
                     if (localActor == null)
                     {
                         return;
