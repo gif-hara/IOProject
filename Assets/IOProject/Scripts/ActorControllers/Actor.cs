@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace IOProject.ActorControllers
@@ -19,6 +20,8 @@ namespace IOProject.ActorControllers
 
         public ActorWeaponController WeaponController { get; private set; }
 
+        public ActorStatusController StatusController { get; private set; }
+
         void Awake()
         {
             this.LocatorController = new ActorLocatorController(locators);
@@ -26,6 +29,8 @@ namespace IOProject.ActorControllers
             this.PostureController.Setup(this);
             this.WeaponController = new ActorWeaponController();
             this.WeaponController.Setup(this);
+            this.StatusController = new ActorStatusController(this, TinyServiceLocator.Resolve<GameDesignData>().ActorHitPoint);
+            TinyServiceLocator.Resolve<ActorManager>().AddActor(this);
         }
 
         public Actor Spawn()
@@ -33,6 +38,18 @@ namespace IOProject.ActorControllers
             var actor = Instantiate(this);
             ActorEvents.OnSpawned.Publish(actor);
             return actor;
+        }
+
+        public void GiveDamage(Actor target, int damage)
+        {
+            Debug.Log($"GiveDamage: {damage}", this);
+            networkController.SendRoomRelayAsync(
+                new NetworkMessage.GiveDamageActor()
+                {
+                    target = target.networkController.strixReplicator.ownerUid,
+                    damage = damage
+                })
+            .Forget();
         }
     }
 }
