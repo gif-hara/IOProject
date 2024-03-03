@@ -51,5 +51,12 @@ namespace IOProject
         /// 射撃のクールタイム
         /// </summary>
         public float FireCoolTime => fireCoolTime;
+
+        [SerializeField]
+        private int actorHitPoint;
+        /// <summary>
+        /// アクターのヒットポイント
+        /// </summary>
+        public int ActorHitPoint => actorHitPoint;
     }
 }
