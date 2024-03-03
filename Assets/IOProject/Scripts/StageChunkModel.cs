@@ -60,7 +60,7 @@ namespace IOProject
             TryOccupy(networkInstanceId);
         }
 
-        public void SetDamageMap(long networkInstanceId, int damage)
+        public void SyncDamageMap(long networkInstanceId, int damage)
         {
             GetOrCreateDamageReactiveProperty(networkInstanceId).Value = damage;
             strixMessage.SyncDamageMap(networkInstanceId, damage);
