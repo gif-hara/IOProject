@@ -43,7 +43,7 @@ namespace IOProject
 
             if (StrixNetwork.instance.isRoomOwner)
             {
-                var _ = Instantiate(this.stagePrefab);
+                _ = Instantiate(this.stagePrefab);
             }
 
             await UniTask.WaitUntil(() => TinyServiceLocator.Contains<Stage>());
