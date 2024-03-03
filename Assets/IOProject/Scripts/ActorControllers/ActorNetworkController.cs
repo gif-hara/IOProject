@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using R3;
 using R3.Triggers;
+using SoftGear.Strix.Client.Core;
 using SoftGear.Strix.Unity.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,33 +16,6 @@ namespace IOProject.ActorControllers
         [SerializeField]
         private Actor actor;
 
-        void Awake()
-        {
-            var gameNetworkController = TinyServiceLocator.Resolve<GameNetworkController>();
-            this.UpdateAsObservable()
-                .Subscribe(_ =>
-                {
-                    if (!isLocal)
-                    {
-                        return;
-                    }
-                    if (Keyboard.current.qKey.wasPressedThisFrame)
-                    {
-                        Debug.Log("qKey.wasPressedThisFrame", this);
-                        gameNetworkController.SendRoomRelayAsync(new NetworkMessage.Helloworld { message = $"Hello, world! {this.strixReplicator.networkInstanceId}" }).Forget();
-                    }
-                })
-                .RegisterTo(this.destroyCancellationToken);
-            gameNetworkController.RoomRelayAsObservable()
-                .WhereOwner(this)
-                .MatchMessage<NetworkMessage.Helloworld>()
-                .Subscribe(x =>
-                {
-                    Debug.Log($"RoomRelayAsObservable: {x.message}", this);
-                })
-                .RegisterTo(this.destroyCancellationToken);
-        }
-
         void Start()
         {
             StartAsRemote().Forget();
@@ -55,6 +29,16 @@ namespace IOProject.ActorControllers
                 return UniTask.CompletedTask;
             }
             return TinyServiceLocator.Resolve<GameNetworkController>().SendRoomRelayAsync(message);
+        }
+
+        public UniTask SendRoomDirectRelayAsync<T>(UID to, T message)
+        {
+            if (!isLocal)
+            {
+                Debug.LogError("SendRoomDirectAsync: !isLocal", this);
+                return UniTask.CompletedTask;
+            }
+            return TinyServiceLocator.Resolve<GameNetworkController>().SendRoomDirectRelayAsync(to, message);
         }
 
         private async UniTask StartAsRemote()
