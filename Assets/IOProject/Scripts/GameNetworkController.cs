@@ -17,6 +17,9 @@ namespace IOProject
         private readonly Subject<NotificationEventArgs<RoomRelayNotification>> roomRelaySubject = new();
         public Observable<NotificationEventArgs<RoomRelayNotification>> RoomRelayAsObservable() => this.roomRelaySubject;
 
+        private readonly Subject<NotificationEventArgs<RoomDirectRelayNotification>> roomDirectRelaySubject = new();
+        public Observable<NotificationEventArgs<RoomDirectRelayNotification>> RoomDirectRelayAsObservable() => this.roomDirectRelaySubject;
+
         public async UniTask ConnectAsync()
         {
             ObjectFactory.Instance.Register(typeof(StrixMessageStageChunkModel));
@@ -26,8 +29,12 @@ namespace IOProject
             ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateActorPosition));
             ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateActorRotation));
             ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateCanFire));
+            ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateHitPointMax));
+            ObjectFactory.Instance.Register(typeof(NetworkMessage.UpdateHitPoint));
+            ObjectFactory.Instance.Register(typeof(NetworkMessage.GiveDamageActor));
             await ConnectMasterServerAsync();
             StrixNetwork.instance.roomSession.roomClient.RoomRelayNotified += OnRoomRelayNotified;
+            StrixNetwork.instance.roomSession.roomClient.RoomDirectRelayNotified += OnRoomDirectRelayNotified;
         }
 
         public UniTask SendRoomRelayAsync<T>(T message)
@@ -42,6 +49,23 @@ namespace IOProject
                 args =>
                 {
                     source.TrySetException(new System.Exception($"SendRoomRelayAsync: {args}, message = {message}, cause = {args.cause}, session = {args.session}"));
+                });
+            return source.Task;
+        }
+
+        public UniTask SendRoomDirectRelayAsync<T>(UID to, T message)
+        {
+            var source = new UniTaskCompletionSource();
+            StrixNetwork.instance.SendRoomDirectRelay(
+                to,
+                message,
+                args =>
+                {
+                    source.TrySetResult();
+                },
+                args =>
+                {
+                    source.TrySetException(new System.Exception($"SendRoomDirectRelayAsync: {args}, message = {message}, cause = {args.cause}, session = {args.session}"));
                 });
             return source.Task;
         }
@@ -119,6 +143,11 @@ namespace IOProject
         private void OnRoomRelayNotified(NotificationEventArgs<RoomRelayNotification> notification)
         {
             roomRelaySubject.OnNext(notification);
+        }
+
+        private void OnRoomDirectRelayNotified(NotificationEventArgs<RoomDirectRelayNotification> notification)
+        {
+            roomDirectRelaySubject.OnNext(notification);
         }
     }
 }
