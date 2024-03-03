@@ -1,3 +1,4 @@
+using SoftGear.Strix.Client.Core;
 using UnityEngine;
 
 namespace IOProject
@@ -31,6 +32,23 @@ namespace IOProject
         public struct UpdateCanFire
         {
             public bool canFire;
+        }
+
+        public struct UpdateHitPointMax
+        {
+            public int hitPointMax;
+        }
+
+        public struct UpdateHitPoint
+        {
+            public int hitPoint;
+        }
+
+        public struct GiveDamageActor
+        {
+            public UID target;
+
+            public int damage;
         }
     }
 }
