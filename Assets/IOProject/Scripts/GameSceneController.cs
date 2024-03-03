@@ -39,6 +39,7 @@ namespace IOProject
             TinyServiceLocator.RegisterAsync(this.gameDesignData, this.destroyCancellationToken).Forget();
             TinyServiceLocator.RegisterAsync<IInputController>(new InputController(), this.destroyCancellationToken).Forget();
             TinyServiceLocator.Resolve<IInputController>().SetCursorVisibliity(false);
+            TinyServiceLocator.RegisterAsync(new ActorManager(), this.destroyCancellationToken).Forget();
 
             if (StrixNetwork.instance.isRoomOwner)
             {
